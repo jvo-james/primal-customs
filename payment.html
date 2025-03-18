@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Complete Your Purchase - Primal Customs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+<script src="https://checkout.hubtel.com/checkout.js"></script>
+
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Raleway', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      color: #333;
+      text-align: center;
+    }
+    .container {
+      max-width: 500px;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
+    }
+    select, input {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0 15px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+    .btn-custom {
+      background: #ff9800;
+      color: white;
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+      margin-top: 10px;
+    }
+    .btn-custom:hover {
+      background: #e68900;
+    }
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      text-align: left;
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #aaa;
+      cursor: pointer;
+    }
+    .close-modal:hover {
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Main Purchase Container (for example purposes) -->
+  <div class="container">
+    <h1>Complete Your Payment</h1>
+    <p>Please review your order and proceed to payment.</p>
+    <!-- This button simulates the "Proceed to Payment" action -->
+    <button class="btn-custom" id="proceedPaymentBtn">Proceed to Payment</button>
+  </div>
+
+  <!-- Payment Modal -->
+  <div id="paymentModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeModalBtn">&times;</span>
+      <h2>Payment Details</h2>
+      <label for="paymentMethod">Payment Method:</label>
+      <select id="paymentMethod" required>
+        <option value="" disabled selected>Select Payment Method</option>
+        <option value="mtn">MTN Mobile Money</option>
+        <option value="vodafone">Vodafone Cash</option>
+        <option value="airteltigo">AirtelTigo Money</option>
+        <option value="bank">Bank Transfer</option>
+      </select>
+      <!-- You can add more fields as required by each payment method -->
+      <label for="phone">Mobile Number:</label>
+      <input type="text" id="phone" placeholder="e.g. 024XXXXXXX" required>
+      <label for="transaction">Transaction ID:</label>
+      <input type="text" id="transaction" placeholder="Enter Transaction ID" required>
+      <!-- Default amount is set to 80 cedis. To change this, modify the value attribute below -->
+      <label for="amount">Payment Amount (cedis):</label>
+      <input type="number" id="amount" value="80" min="0" required>
+     <button class="btn-custom" id="payNowBtn">Proceed with Payment</button>
+
+    </div>
+  </div><script>
+document.getElementById("payNowBtn").addEventListener("click", function () {
+    let phone = document.getElementById("phone").value.trim();
+    let amount = 80;  // Default amount (in GHS)
+    let method = document.getElementById("paymentMethod").value;
+
+    if (!phone || !method) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    // Hubtel API request to initiate payment
+    let paymentRequest = {
+        "totalAmount": amount,
+        "description": "Purchase of Custom T-Shirt",
+        "callbackUrl": "https://yourwebsite.com/payment-success.html", // Change this to your success page
+        "returnUrl": "https://yourwebsite.com/payment-success.html",
+        "cancellationUrl": "https://yourwebsite.com/payment-failed.html",
+        "merchantAccountNumber": "YOUR_HUBTEL_MERCHANT_ID", // Replace with your Hubtel Merchant ID
+        "clientReference": "ORDER-" + Math.floor(Math.random() * 1000000000),
+        "customerName": "Customer",
+        "customerMsisdn": phone,
+        "channel": method // e.g., "mtn-gh", "vodafone-gh", "airteltigo-gh"
+    };
+
+    fetch("https://api.hubtel.com/v1/merchant-account/onlinecheckout/invoice/create", {
+        method: "POST",
+        headers: {
+            "Authorization": "Basic " + btoa("YOUR_CLIENT_ID:YOUR_CLIENT_SECRET"),
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(paymentRequest)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.responseCode === "0000") {
+            window.location.href = data.checkoutUrl;  // Redirect to Hubtel payment page
+        } else {
+            alert("Payment failed: " + data.responseMessage);
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error processing payment. Please try again.");
+    });
+});
+</script>
+
+
+  <script>
+    // When the user clicks "Proceed to Payment", show the payment modal
+    document.getElementById("proceedPaymentBtn").addEventListener("click", function(){
+      const paymentMethod = document.getElementById("paymentMethod").value;
+      if (!paymentMethod) {
+        // Optionally, you could force the user to select a payment method before opening the modal.
+        // For this demo, we just open the modal.
+      }
+      document.getElementById("paymentModal").style.display = "flex";
+    });
+
+    // When the user clicks the close button, hide the payment modal
+    document.getElementById("closeModalBtn").addEventListener("click", function(){
+      document.getElementById("paymentModal").style.display = "none";
+    });
+
+    // Close the modal if the user clicks outside the modal content
+    window.addEventListener("click", function(event) {
+      const modal = document.getElementById("paymentModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    });
+
+    // Handle the payment submission
+    document.getElementById("submitPaymentBtn").addEventListener("click", function(){
+      // Validate the payment fields (you can add more validations as needed)
+      const method = document.getElementById("paymentMethod").value;
+      const phone = document.getElementById("phone").value.trim();
+      const transaction = document.getElementById("transaction").value.trim();
+      const amount = document.getElementById("amount").value;
+
+      if (!method || !phone || !transaction || !amount) {
+        alert("Please fill in all payment details.");
+        return;
+      }
+      
+      // Simulate payment processing (here you can integrate with a real payment gateway API)
+      // For this demo, we assume the payment is successful.
+      alert("Payment successful!");
+      
+      // Redirect to confirmation page (or perform further actions)
+      window.location.href = "confirmation.html";
+    });
+  </script>
+</body>
+<script>
+document.getElementById("payNowBtn").addEventListener("click", function () {
+    let phone = document.getElementById("phone").value.trim();
+    let amount = document.getElementById("amount").value.trim();
+    let method = document.getElementById("paymentMethod").value;
+  
+    if (!phone || !amount || !method) {
+        alert("Please fill in all required fields.");
+        return;
+    }
+
+    FlutterwaveCheckout({
+        public_key: "YOUR_FLUTTERWAVE_PUBLIC_KEY",  // Replace with your actual key
+        tx_ref: "TX" + Math.floor((Math.random() * 1000000000) + 1),
+        amount: amount,
+        currency: "GHS",
+        payment_options: "mobilemoneyghana, card, banktransfer",
+        redirect_url: "https://yourwebsite.com/payment-success.html", // Replace with your actual success page
+        customer: {
+            email: "customer@example.com", // You can replace this with a real email input field
+            phone_number: phone,
+            name: "John Doe" // You can replace this with a real name input field
+        },
+        customizations: {
+            title: "Primal Customs",
+            description: "Purchase of Custom T-Shirt",
+            logo: "https://yourwebsite.com/logo.png" // Replace with your actual logo URL
+        },
+        callback: function (data) {
+            console.log(data);
+            if (data.status === "successful") {
+                alert("Payment Successful! Redirecting...");
+                window.location.href = "https://yourwebsite.com/payment-success.html";
+            } else {
+                alert("Payment failed! Please try again.");
+            }
+        }
+    });
+});
+</script>
+
+</html>

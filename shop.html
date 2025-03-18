@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop - Primal Customs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    /* 🌟 General Styling */
+    body {
+      font-family: 'Raleway', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+      text-align: center;
+    }
+    
+    /* 🌟 Navigation Bar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: black;
+    }
+    .navbar .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: #ff9800;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+    .nav-links li {
+      margin: 0 15px;
+    }
+    .nav-links a, .nav-links button {
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .nav-links a:hover, .nav-links button:hover {
+      color: #ff9800;
+    }
+    
+    /* 🌟 Shop Header */
+    .shop-header {
+      padding: 50px;
+      background: #ff9800;
+      color: black;
+    }
+    .shop-header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    .shop-header p {
+      font-size: 1.2rem;
+    }
+    
+    /* 🌟 Product Grid */
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      padding: 40px;
+    }
+    .product {
+      background: white;
+      color: black;
+      width: 250px;
+      padding: 15px;
+      border-radius: 10px;
+      transition: 0.3s;
+      position: relative;
+    }
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .product:hover {
+      transform: scale(1.05);
+    }
+    .product-info h2 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+    .product-info p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .add-to-cart {
+      display: inline-block;
+      background: #ff9800;
+      color: white;
+      font-size: 16px;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .add-to-cart:hover {
+      background: #e68a00;
+    }
+    .add-to-cart.added {
+      background: #4CAF50;
+      color: white;
+      cursor: default;
+    }
+    
+    /* 🌟 Product Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 600px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 15px;
+      padding: 30px;
+      z-index: 1000;
+      flex-direction: column;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    .modal img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+      background: black;
+      padding: 5px 10px;
+      border-radius: 50%;
+      transition: 0.3s ease;
+    }
+    .close:hover {
+      background: #ff9800;
+      color: white;
+    }
+    .modal-title {
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 15px;
+    }
+    .modal-description {
+      font-size: 18px;
+      color: #555;
+      margin: 15px 0;
+    }
+    .buy-now {
+      background: #ff9800;
+      padding: 12px 20px;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-top: 15px;
+      transition: all 0.3s ease;
+    }
+    .buy-now:hover {
+      background: #e68900;
+    }
+    
+    /* 🌟 Cart Modal */
+    #cartModal {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 10px;
+      padding: 20px;
+      z-index: 1000;
+      text-align: center;
+    }
+    #cartModal h2 {
+      color: #ff9800;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    #cartItems {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .cart-item {
+      position: relative;
+    }
+    .cart-image {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .removeFromCart {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff4b5c;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s ease;
+    }
+    .removeFromCart:hover {
+      background: #ff1a3c;
+    }
+    
+    /* 🌟 Footer */
+    .footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 15px 0;
+      font-size: 16px;
+      position: relative;
+      width: 100%;
+    }
+    
+    /* 🔥 Responsive Design for Mobile */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 10px 20px;
+      }
+      .nav-links a, .nav-links button {
+        font-size: 14px;
+      }
+      .shop-header h1 {
+        font-size: 28px;
+      }
+      .shop-header p {
+        font-size: 16px;
+      }
+      .products {
+        padding: 20px;
+      }
+      .product {
+        width: 200px;
+        padding: 10px;
+      }
+      .add-to-cart {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+      .modal {
+        max-width: 90%;
+        padding: 15px;
+      }
+      #cartModal {
+        width: 90%;
+      }
+      .modal-title {
+        font-size: 22px;
+      }
+      .modal-description {
+        font-size: 16px;
+      }
+      .buy-now {
+        font-size: 18px;
+        padding: 10px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+      <div class="logo">Primal Customs</div>
+      <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html" class="active">Shop Now</a></li>
+          <li><button id="cartIcon"><i class="fas fa-shopping-cart"></i> Cart</button></li>
+      </ul>
+  </nav>
+  
+  <!-- Hero Section -->
+  <header class="shop-header">
+      <h1>🔥 Explore Our Latest Designs</h1>
+      <p>New designs every month. Click on a design to view details.</p>
+  </header>
+  
+  <!-- Product Showcase -->
+  <section class="products">
+      <div class="product">
+          <img src="designs/design1.jpg" alt="Abstract Flames" onclick="openProductModal('designs/design1.jpg', 'Abstract Flames', 'A fiery artistic expression.')">
+          <div class="product-info">
+              <h2>Abstract Flames</h2>
+              <p>🔥 A fiery artistic expression.</p>
+              <button class="add-to-cart" data-name="Abstract Flames" onclick="addToCart(event, 'designs/design1.jpg', 'Abstract Flames')">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+          </div>
+      </div>
+      <div class="product">
+          <img src="designs/design2.jpg" alt="Urban Graffiti" onclick="openProductModal('designs/design2.jpg', 'Urban Graffiti', 'A bold and creative street art design.')">
+          <div class="product-info">
+              <h2>Urban Graffiti</h2>
+              <p>🎨 A bold and creative street art design.</p>
+              <button class="add-to-cart" data-name="Urban Graffiti" onclick="addToCart(event, 'designs/design2.jpg', 'Urban Graffiti')">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+          </div>
+      </div>
+      <div class="product">
+          <img src="designs/design3.jpg" alt="Space Vortex" onclick="openProductModal('designs/design3.jpg', 'Space Vortex', 'A cosmic blend of colors and motion.')">
+          <div class="product-info">
+              <h2>Space Vortex</h2>
+              <p>🌌 A cosmic blend of colors and motion.</p>
+              <button class="add-to-cart" data-name="Space Vortex" onclick="addToCart(event, 'designs/design3.jpg', 'Space Vortex')">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+          </div>
+      </div>
+      <div class="product">
+          <img src="designs/design4.jpg" alt="Minimalist Waves" onclick="openProductModal('designs/design4.jpg', 'Minimalist Waves', 'A sleek and modern artistic wave pattern.')">
+          <div class="product-info">
+              <h2>Minimalist Waves</h2>
+              <p>🌊 A sleek and modern artistic wave pattern.</p>
+              <button class="add-to-cart" data-name="Minimalist Waves" onclick="addToCart(event, 'designs/design4.jpg', 'Minimalist Waves')">
+                  <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+          </div>
+      </div>
+  </section>
+  
+  <!-- Product Modal (Enlarged View) -->
+  <div id="productModal" class="modal">
+      <div class="modal-content">
+          <span class="close" onclick="closeProductModal()">&times;</span>
+          <img id="modalImage" src="" alt="Product Image">
+          <h2 id="modalTitle" class="modal-title"></h2>
+          <p id="modalDescription" class="modal-description"></p>
+          <a id="buyNowLink" href="purchase.html">
+              <button class="buy-now" onclick="selectProductForPurchase(event)"><i class="fas fa-shopping-bag"></i> Buy Now</button>
+          </a>
+      </div>
+  </div>
+  
+  <!-- Cart Modal -->
+  <div id="cartModal">
+      <h2>Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <div class="cart-buttons">
+          <button id="closeCart">Close</button>
+      </div>
+  </div>
+  
+  <!-- Footer -->
+  <footer class="footer">
+      <p>&copy; 2025 Primal Customs. All Rights Reserved.</p>
+  </footer>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Hide modals on page load
+        document.getElementById("productModal").style.display = "none";
+        document.getElementById("cartModal").style.display = "none";
+  
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        updateCartUI();
+        restoreCartState();
+  
+        // Open Product Modal when a cart image is clicked (via openCartProductModal)
+        window.openCartProductModal = function (img, title, description) {
+            document.getElementById("cartModal").style.display = "none"; // Close cart modal
+            openProductModal(img, title, description);
+        };
+  
+        // Open Product Modal
+        window.openProductModal = function (img, title, description) {
+            document.getElementById("modalImage").src = img;
+            document.getElementById("modalTitle").innerText = title;
+            document.getElementById("modalDescription").innerText = description;
+            document.getElementById("productModal").style.display = "flex";
+        };
+  
+        // Close Product Modal
+        window.closeProductModal = function () {
+            document.getElementById("productModal").style.display = "none";
+        };
+  
+        // Add to Cart Function
+        window.addToCart = function (event, img, title) {
+            event.stopPropagation();
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let button = event.target.closest("button");
+  
+            // Check if item is already in cart
+            if (cart.some(item => item.name === title)) {
+                return;
+            }
+  
+            // Add item to cart
+            cart.push({ name: title, image: img });
+            localStorage.setItem("cart", JSON.stringify(cart));
+  
+            // Update button text & style
+            button.classList.add("added");
+            button.innerHTML = "✅ Added to Cart";
+  
+            // Update Cart UI
+            updateCartUI();
+        };
+  
+        // Remove from Cart Function
+        window.removeFromCart = function (index, itemName) {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+            // Remove item at index
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+  
+            updateCartUI();
+            restoreCartState();
+  
+            // Reset the "Add to Cart" button for the removed item
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                if (button.getAttribute("data-name") === itemName) {
+                    button.classList.remove("added");
+                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                }
+            });
+        };
+  
+        // Restore "Added to Cart" Button State on Refresh
+        function restoreCartState() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  
+            document.querySelectorAll(".add-to-cart").forEach(button => {
+                let productName = button.getAttribute("data-name");
+  
+                if (cart.some(item => item.name === productName)) {
+                    button.classList.add("added");
+                    button.innerHTML = "✅ Added to Cart";
+                } else {
+                    button.classList.remove("added");
+                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+                }
+            });
+        }
+  
+        // Update Cart UI (Only Shows Images)
+        function updateCartUI() {
+            let cart = JSON.parse(localStorage.getItem("cart")) || [];
+            let cartItemsContainer = document.getElementById("cartItems");
+  
+            cartItemsContainer.innerHTML = ""; // Clear existing items
+  
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+            } else {
+                cart.forEach((item, index) => {
+                    let div = document.createElement("div");
+                    div.classList.add("cart-item");
+                    div.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}" class="cart-image" onclick="openCartProductModal('${item.image}', '${item.name}', 'Click Buy Now to purchase')">
+                        <button class="removeFromCart" onclick="removeFromCart(${index}, '${item.name}')">❌</button>
+                    `;
+                    cartItemsContainer.appendChild(div);
+                });
+            }
+        }
+  
+        // Open Cart Modal
+        document.getElementById("cartIcon").addEventListener("click", function () {
+            document.getElementById("cartModal").style.display = "block";
+            updateCartUI();
+        });
+  
+        // Close Cart Modal
+        document.getElementById("closeCart").addEventListener("click", function () {
+            document.getElementById("cartModal").style.display = "none";
+        });
+  
+        // Ensure cart buttons and states are updated on page load
+        restoreCartState();
+    });
+
+function selectProductForPurchase(event) {
+  event.preventDefault();  
+  // Retrieve product details from the modal elements
+  const image = document.getElementById("modalImage").src;
+  const title = document.getElementById("modalTitle").innerText;
+  const description = document.getElementById("modalDescription").innerText;
+  
+  // Store product details in localStorage
+  const selectedProduct = { image, title, description };
+  localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+  
+  // Redirect to purchase page
+  window.location.href = "purchase.html";
+}
+
+  </script>
+</body>
+</html>
