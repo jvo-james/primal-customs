@@ -231,7 +231,7 @@
   .container {
     flex-direction: column;
    width: 95%;
-    max-width: 500px;
+    max-width: 100%;
     margin: 60px auto; /* Adjust margins for better spacing */
     padding: 10px;
   }
@@ -265,23 +265,24 @@
   /* Form Fields */
   .form-group {
     margin-bottom: 15px;
+    position: relative;
   }
  .form-group input,
   .form-group textarea,
   .form-group select {
     width: 100%; /* Ensures inputs fit within the container */
     max-width: 100%;
-    padding: 12px 12px 12px 40px; /* Adjust padding */
+    padding: 12px 15px; /* Adjust padding */
     font-size: 14px; /* Reduce font size slightly for better fit */
   }
   .form-group select {
-    padding-left: 50px !important; /* Ensures text is visible and not covered */
+    padding-left: 40px !important; /* Ensures text is visible and not covered */
   }
 
   /* Icons in Form Fields */
   .form-group i {
     font-size: 16px;
-    left: 12px;
+    left: 15px;
   }
 
   /* Terms & Conditions */
