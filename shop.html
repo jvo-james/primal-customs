@@ -378,9 +378,13 @@
         position: fixed;
         top: 0;
         left: 0;
-        width: 95%;
+        width: 100%;
+          z-index: 1000;
       
     }
+      body {
+    padding-top: 60px; /* Push content down (adjust if needed) */
+  }
   nav {
     display: flex;
     justify-content: space-between;
@@ -397,10 +401,13 @@
     gap: 15px;
     padding: 0;
     margin: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto; 
   }
 
   nav .nav-links li {
     list-style: none;
+    white-space: nowrap;
   }
 
   nav .nav-links a {
