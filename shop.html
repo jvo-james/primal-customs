@@ -371,7 +371,8 @@
     font-size: 14px;
     padding: 10px;
   }
-
+ 
+ 
    
   /* Navbar Styling: Ensure it's Horizontal */
         .navbar {
@@ -386,10 +387,11 @@
     padding-top: 60px; /* Push content down (adjust if needed) */
   }
   nav {
+    flex-direction: column;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
+    padding: 5px 10px;
   }
   
   nav .logo {
@@ -397,12 +399,12 @@
   }
 
   nav .nav-links {
-    display: flex;
-    gap: 15px;
-    padding: 0;
-    margin: 0;
-    flex-wrap: nowrap;
-    overflow-x: auto; 
+      flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap; 
+        gap: 5px; 
+        width: 100%;
+	    font-size: 12px;
   }
 
   nav .nav-links li {
