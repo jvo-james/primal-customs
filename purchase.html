@@ -211,6 +211,9 @@
 
   /* Navigation Bar */
   nav {
+    display: flex;
+    flex-wrap: nowrap; /* Prevents wrapping */
+    justify-content: space-between;
     padding: 10px 15px;
   }
   nav .logo {
@@ -219,14 +222,18 @@
   nav .nav-links a {
     font-size: 14px;
     padding: 5px;
+     display: flex;
+    flex-direction: row; /* Ensures horizontal layout */
+    gap: 10px;
   }
 
   /* Container Adjustments */
   .container {
     flex-direction: column;
-    margin: 80px auto 30px;
+   width: 95%;
+    max-width: 500px;
+    margin: 60px auto; /* Adjust margins for better spacing */
     padding: 10px;
-    max-width: 95%;
   }
 
   /* Product Info Section */
@@ -259,11 +266,16 @@
   .form-group {
     margin-bottom: 15px;
   }
-  .form-group input,
+ .form-group input,
+  .form-group textarea,
   .form-group select {
-    font-size: 14px;
-    width: 80%;
-    padding: 10px 40px 10px 35px; /* Adjusted padding for icons */
+    width: 100%; /* Ensures inputs fit within the container */
+    max-width: 100%;
+    padding: 12px 12px 12px 40px; /* Adjust padding */
+    font-size: 14px; /* Reduce font size slightly for better fit */
+  }
+  .form-group select {
+    padding-left: 50px !important; /* Ensures text is visible and not covered */
   }
 
   /* Icons in Form Fields */
@@ -284,6 +296,10 @@
   .purchase-form-container button {
     font-size: 16px;
     padding: 10px;
+  }
+       html, body {
+    width: 100%;
+    overflow-x: hidden;
   }
 }
 
