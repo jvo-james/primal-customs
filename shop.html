@@ -298,49 +298,93 @@
 .footer a:hover {
     color: #e68900; 
 }
-    /* 🔥 Responsive Design for Mobile */
+
     @media (max-width: 768px) {
-      .navbar {
-        padding: 10px 20px;
-      }
-      .nav-links a, .nav-links button {
-        font-size: 14px;
-      }
-      .shop-header h1 {
-        font-size: 28px;
-      }
-      .shop-header p {
-        font-size: 16px;
-      }
-      .products {
-        padding: 20px;
-      }
-      .product {
-        width: 200px;
-        padding: 10px;
-      }
-      .add-to-cart {
-        font-size: 14px;
-        padding: 8px 12px;
-      }
-      .modal {
-        max-width: 90%;
-        padding: 15px;
-      }
-      #cartModal {
-        width: 90%;
-      }
-      .modal-title {
-        font-size: 22px;
-      }
-      .modal-description {
-        font-size: 16px;
-      }
-      .buy-now {
-        font-size: 18px;
-        padding: 10px 14px;
-      }
-    }
+  /* 🌟 Adjust Navbar */
+  .navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+  .nav-links {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .nav-links a, .nav-links button {
+    font-size: 16px;
+  }
+
+  /* 🌟 Shop Header */
+  .shop-header {
+    padding: 30px 15px;
+  }
+  .shop-header h1 {
+    font-size: 24px;
+  }
+  .shop-header p {
+    font-size: 14px;
+  }
+
+  /* 🌟 Product Grid */
+  .products {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  .product {
+    width: 90%;
+    max-width: 300px;
+    padding: 15px;
+  }
+  .product img {
+    width: 100%;
+  }
+  .add-to-cart {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* 🌟 Modal Adjustments */
+  .modal {
+    max-width: 95%;
+    padding: 15px;
+  }
+  .modal-content {
+    padding: 15px;
+  }
+  .modal-title {
+    font-size: 20px;
+  }
+  .modal-description {
+    font-size: 14px;
+  }
+  .buy-now {
+    font-size: 16px;
+    padding: 10px;
+  }
+
+  /* 🌟 Cart Modal */
+  #cartModal {
+    width: 95%;
+    padding: 15px;
+  }
+  .cart-image {
+    width: 70px;
+    height: 70px;
+  }
+  .removeFromCart {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+  }
+
+  /* 🌟 Footer */
+  .footer {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+
   </style>
 </head>
 <body>
