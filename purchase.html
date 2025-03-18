@@ -201,39 +201,35 @@
     }
     
 
-    @media (max-width: 768px) {
-  /* General Adjustments */
+@media (max-width: 768px) {
+  /* General Mobile Adjustments */
   body {
     font-size: 14px;
-   padding-top: 60px; 
-    overflow-x: hidden;
+    padding-top: 60px; /* Prevent navbar from covering content */
+    width: 100%;
+    overflow-x: hidden; /* Remove horizontal scrolling */
   }
 
   /* Navigation Bar */
   nav {
-    display: flex;
-    flex-wrap: nowrap; /* Prevents wrapping */
-    justify-content: space-between;
     padding: 10px 15px;
   }
-  nav .logo {
-    font-size: 20px;
+  nav .nav-links {
+    display: flex;
+    gap: 10px;
   }
   nav .nav-links a {
     font-size: 14px;
     padding: 5px;
-     display: flex;
-    flex-direction: row; /* Ensures horizontal layout */
-    gap: 10px;
   }
 
   /* Container Adjustments */
   .container {
-   width: 100%;
+    width: 95%;
     max-width: 100%;
-    margin: 80px auto 0; 
+    margin: 80px auto 0;
     padding: 15px;
-    min-height: calc(100vh - 80px); 
+    min-height: calc(100vh - 80px);
     box-sizing: border-box;
   }
 
@@ -268,29 +264,30 @@
     margin-bottom: 15px;
     position: relative;
   }
- .form-group input,
+  .form-group input,
   .form-group textarea,
   .form-group select {
-    width: 70%; /* Ensures inputs fit within the container */
-    max-width: 70%;
-    padding: 8px 10px 8px 40px;  /* Adjust padding */
-    font-size: 14px; /* Reduce font size slightly for better fit */
+    width: 100%; /* Ensure inputs fit within the container */
+    max-width: 100%;
+    padding: 12px 15px; /* Adjust padding */
+    font-size: 14px; /* Reduce font size slightly */
     box-sizing: border-box;
   }
+
+  /* Fix Payment Method Field (Prevent Icon Overlapping Text) */
   .form-group select {
-    padding-left: 40px !important; /* Ensures text is visible and not covered */
+    padding-left: 50px !important; /* Shift text away from icon */
   }
 
   /* Icons in Form Fields */
   .form-group i {
     font-size: 16px;
     left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
   }
 
   /* Terms & Conditions */
-  .terms-group {
-    font-size: 12px;
-  }
   .terms-group label {
     font-size: 13px;
   }
@@ -299,12 +296,10 @@
   .purchase-form-container button {
     font-size: 16px;
     padding: 10px;
-  }
-       html, body {
     width: 100%;
-    overflow-x: hidden;
   }
 }
+
 
   </style>
 </head>
