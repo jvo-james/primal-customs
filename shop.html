@@ -256,7 +256,43 @@
       position: relative;
       width: 100%;
     }
-    
+    .contact-socials {
+    text-align: center;
+    padding: 40px;
+    background: #333;
+    color: white;
+}
+
+.contact-socials h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    display: inline-block;
+    margin: 0 10px;
+    color: white;
+    font-size: 24px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+
+
+
+.footer a {
+    color: #ff9800; 
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer a:hover {
+    color: #e68900; 
+}
     /* 🔥 Responsive Design for Mobile */
     @media (max-width: 768px) {
       .navbar {
@@ -322,7 +358,7 @@
   <!-- Product Showcase -->
   <section class="products">
       <div class="product">
-          <img src="design1.jpg" alt="Abstract Flames" onclick="openProductModal('design1.jpg', 'Primal Legacy', '📜 A timeless blend of history and modern design.<br>Price: <b>GHS 80</b>
+          <img src="design1.jpg" alt="Abstract Flames" onclick="openProductModal('design1.jpg', 'Primal Legacy', '📜 A timeless blend of history and modern design. ')">
               <h2>Primal Legacy</h2>
               <p>📜 A timeless blend of history and modern design.<br>Price: <b>GHS 80</b></p>
               <button class="add-to-cart" data-name="Abstract Flames" onclick="addToCart(event, 'design1.jpg', 'Primal Legacy')">
@@ -331,7 +367,7 @@
           </div>
       </div>
       <div class="product">
-          <img src="design2.jpg" alt="Urban Graffiti" onclick="openProductModal('design2.jpg', 'Primal Legacy (Black)', '🏛️ A fusion of history and modern minimalism. <br>Price: <b>GHS 80</b>')">
+          <img src="design2.jpg" alt="Urban Graffiti" onclick="openProductModal('design2.jpg', 'Primal Legacy (Black)', '🏛️ A fusion of history and modern minimalism. ')">
           <div class="product-info">
               <h2>Primal Legacy (Black)</h2>
               <p>🏛️ A fusion of history and modern minimalism. <br>Price: <b>GHS 80</b></p>
@@ -341,7 +377,7 @@
           </div>
       </div>
       <div class="product">
-          <img src="design3.jpg" alt="Falling Titan" onclick="openProductModal('design3.jpg', 'Falling Titan', '🔥 A bold statement of power and movement. <br>Price: <b>GHS 80</b>')">
+          <img src="design3.jpg" alt="Falling Titan" onclick="openProductModal('design3.jpg', 'Falling Titan', '🔥 A bold statement of power and movement. ')">
           <div class="product-info">
               <h2>Falling Titan</h2>
               <p>🔥 A bold statement of power and movement. <br>Price: <b>GHS 80</b></p>
@@ -351,7 +387,7 @@
           </div>
       </div>
       <div class="product">
-          <img src="design4.jpg" alt="Falling Titan (Noir Edition)" onclick="openProductModal('design4.jpg', 'Falling Titan (Noir Edition)', '🌌 A striking neon twist on a classical masterpiece. <br>Price: <b>GHS 80</b>')">
+          <img src="design4.jpg" alt="Falling Titan (Noir Edition)" onclick="openProductModal('design4.jpg', 'Falling Titan (Noir Edition)', '🌌 A striking neon twist on a classical masterpiece. ')">
           <div class="product-info">
               <h2>Falling Titan (Noir Edition)</h2>
               <p>🌌 A striking neon twist on a classical masterpiece. <br>Price: <b>GHS 80</b></p>
@@ -387,6 +423,16 @@
   <!-- Footer -->
   <footer class="footer">
       <p>&copy; 2025 Primal Customs. All Rights Reserved.</p>
+      <section class="contact-socials">
+        <h2>🌍 Connect with Us</h2>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </section>
   </footer>
   
   <script>
