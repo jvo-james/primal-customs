@@ -154,6 +154,22 @@
       object-fit: contain;
       border-radius: 10px;
     }
+	  /* ✅ Border for First and Third Images on Homepage */
+.products img:nth-of-type(1),
+.products img:nth-of-type(3) {
+    border: 3px solid #ff9800; /* Adjust color and thickness */
+    border-radius: 8px; /* Optional: Rounded corners */
+    padding: 5px; /* Optional: Space between image and border */
+}
+
+/* ✅ Border for First and Third Images in Modal */
+.modal-content img:nth-of-type(1),
+.modal-content img:nth-of-type(3) {
+    border: 3px solid #ff9800;
+    border-radius: 8px;
+    padding: 5px;
+}
+
     .close {
       position: absolute;
       top: 10px;
