@@ -19,7 +19,10 @@
     
     /* 🌟 Navigation Bar */
     .navbar {
-      position: fixed;
+      position: sticky;
+      top: 0;
+      width: 95%;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -70,6 +73,8 @@
     /* 🌟 Product Grid */
     .products {
       display: flex;
+       display: grid;
+    grid-template-columns: 1fr;
       flex-wrap: wrap;
       justify-content: center;
       gap: 20px;
@@ -425,8 +430,8 @@
   <footer class="footer">
       <p>&copy; 2025 Primal Customs. All Rights Reserved.</p>
      <p>
-        <a href="https://jvo-james.github.io/skillforg-website/privacy.html">Privacy Policy</a> | 
-        <a href="https://jvo-james.github.io/skillforg-website/terms.html">Terms of Use</a>  
+        <a href="#">Privacy Policy</a> | 
+        <a href="#">Terms of Use</a>  
        
     </p>
       <div class="contact-socials">
