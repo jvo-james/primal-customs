@@ -212,61 +212,56 @@
       line-height: 1.6;
     }
 
-    /* ==========================
-       Featured Products Section
-    ========================== */
-    .products {
-      padding: 20px 20px;
-      background: #141e30;
-      text-align: center;
-    }
-    .products h2 {
-      font-size: 2.5rem;
-      margin-bottom: 40px;
-      color: #ff9800;
-    }
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .product-card {
-      background: #1c1f26;
-      padding: 20px;
-      border-radius: 10px;
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    .product-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    }
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .product-card h3 {
-      margin: 15px 0;
-      font-size: 1.5rem;
-      color: #fff;
-    }
-    .product-card p {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 15px;
-    }
-    .product-card .btn {
-      background: #ff9800;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      color: #000;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .product-card .btn:hover { background: #e68900; }
+   .featured-products {
+    text-align: center;
+    padding: 40px 0;
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2x2 Grid */
+    gap: 15px;
+    justify-content: center;
+    max-width: 400px;
+    margin: auto;
+}
+
+.product img {
+    width: 100%;  /* Make images responsive */
+    max-width: 150px; /* Set smaller image size */
+    height: auto;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.product img:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+.design-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.purchase-btn {
+    display: block;
+    width: 200px;
+    margin: 20px auto 0;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background: #ff5733;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.purchase-btn:hover {
+    background: #e14e2b;
+}
 
     /* ==========================
        Testimonials Section
@@ -357,9 +352,10 @@
   .slideshow-container {
     width: 90%;
     height: auto;
-    padding-left: 20px;
+    padding-left: 25px;
   }
-  
+   .prev { left: 25px; }
+    .next { right: 5px; }
   /* Ensure slideshow images are scaled appropriately */
   .slide img {
      width: 100%;
@@ -461,33 +457,27 @@
   </p>
 </div>
 <br>
-    <h2>Featured Products</h2>
-    <div class="product-grid">
-      <div class="product-card">
-        <img src="design1.jpg" alt="Design 1">
-        <h3>Abstract Flames</h3>
-        <p>A bold and dynamic design that ignites passion.</p>
-        <button class="btn">Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="design2.jpg" alt="Design 2">
-        <h3>Urban Graffiti</h3>
-        <p>A modern twist on street art that speaks volumes.</p>
-        <button class="btn">Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="design3.jpg" alt="Design 3">
-        <h3>Space Vortex</h3>
-        <p>A cosmic blend of creativity and style.</p>
-        <button class="btn">Add to Cart</button>
-      </div>
-      <div class="product-card">
-        <img src="design4.jpg" alt="Design 4">
-        <h3>Minimalist Waves</h3>
-        <p>An elegant and subtle design that never goes out of style.</p>
-        <button class="btn">Add to Cart</button>
-      </div>
+    
+        <h2 class="section-title">Featured Products</h2>
+    <div class="featured-grid">
+        <div class="product">
+            <img src="images/design1.jpg" alt="Design 1">
+            <p class="design-name">Design 1</p>
+        </div>
+        <div class="product">
+            <img src="images/design2.jpg" alt="Design 2">
+            <p class="design-name">Design 2</p>
+        </div>
+        <div class="product">
+            <img src="images/design3.jpg" alt="Design 3">
+            <p class="design-name">Design 3</p>
+        </div>
+        <div class="product">
+            <img src="images/design4.jpg" alt="Design 4">
+            <p class="design-name">Design 4</p>
+        </div>
     </div>
+    <button class="purchase-btn">Purchase</button>
   </section>
   
   <!-- Testimonials Section -->
