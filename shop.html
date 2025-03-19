@@ -390,37 +390,48 @@
   }
  
  
-   
+
   /* Navbar Styling: Ensure it's Horizontal */
-        .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-          z-index: 1000;
-      
-    }
-      body {
-    padding-top: 100px; /* Push content down (adjust if needed) */
-  }
-  nav {
-    flex-direction: row;
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
     display: flex;
-    
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; /* Reduce padding for a compact look */
   }
   
-  nav .logo {
-    font-size: 8px; /* Slightly smaller logo */
+  /* Push content down to avoid overlap */
+  body {
+    padding-top: 100px;
   }
-	    nav button { font-size:6px; }
- nav ul { flex-wrap: wrap; gap: 4px; }
-      nav ul li a { font-size: 6px; }
+
+  /* Make nav links smaller and in one row */
+  .nav-links {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: center;
+    gap: 8px; /* Reduce spacing between items */
+  }
+
+  .nav-links li {
+    margin: 0;
+  }
+
+  .nav-links a, .nav-links button {
+    font-size: 12px; /* Reduce font size for smaller screens */
+    padding: 5px 8px;
+  }
+
+  /* Reduce logo size */
+  .navbar .logo {
+    font-size: 18px;
+  }
 
 
-  nav .nav-links li {
-    list-style: none;
-    white-space: nowrap;
-  }
 
   
 
