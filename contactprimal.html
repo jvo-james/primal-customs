@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Primal Customs | Contact</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ==========================
+       Base & General Styles
+    ========================== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: #141e30;
+      color: #fff;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    
+    /* ==========================
+       Navigation Bar
+    ========================== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff9800;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background: #ff9800;
+      color: #141e30;
+      border-radius: 5px;
+    }
+    
+    /* ==========================
+       Hero Section
+    ========================== */
+    .hero {
+      position: relative;
+      min-height: 50vh;
+      background: url('images/contact-bg.jpg') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 70px; /* leave space for navbar */
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 20px;
+      animation: fadeIn 1.5s ease;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+    }
+    
+    /* ==========================
+       Contact Form Section
+    ========================== */
+    .contact-section {
+      padding: 80px 20px;
+      background: #1c1f26;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+    }
+.contact-form {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 100%;
+  animation: fadeInUp 1s ease;
+}
+.contact-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ff9800;
+  font-size: 2rem;
+}
+
+/* Style for form groups */
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Input and Textarea Adjustments */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 12px 15px 12px 45px; /* Added left padding for icon */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #f2f2f2;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #ff9800;
+  box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+  animation: pulseOnce 0.5s ease-in-out;
+}
+
+/* Adjust Icon Position */
+.form-group i {
+  position: absolute;
+  left: 15px; /* Space between icon and border */
+  top: 70%;
+  transform: translateY(-50%);
+  color: #ff9800;
+  font-size: 18px;
+  pointer-events: none; /* Prevent icon from interfering with input clicks */
+}
+
+/* Submit Button */
+.contact-form button {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  background: #ff9800;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.contact-form button:hover {
+  background: #e68900;
+}
+    
+    /* ==========================
+       Contact Details Section
+    ========================== */
+    .contact-details {
+      max-width: 500px;
+      width: 100%;
+      padding: 30px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      animation: fadeInUp 1s ease;
+    }
+    .contact-details h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #ff9800;
+      font-size: 2rem;
+    }
+    .contact-details p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .contact-details i {
+      font-size: 1.5rem;
+      color: #ff9800;
+    }
+    
+    /* ==========================
+       Footer
+    ========================== */
+    footer {
+      background: #222;
+      color: #aaa;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer p { margin-bottom: 10px; }
+    footer a {
+      color: #ff9800;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    footer a:hover { color: #e68900; }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.2); }
+
+    /* ==========================
+       Animations
+    ========================== */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Primal Customs</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="shop.html"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="cart.html"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Get in Touch with Us</h1>
+      <p>We’re here to answer your questions and help you find the perfect style.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-section">
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h2>Send Us a Message</h2>
+      <form action="https://formsubmit.co/your-email@example.com" method="POST">
+        <!-- Hidden fields for FormSubmit (customize as needed) -->
+        <input type="hidden" name="_next" value="thankyou.html">
+        <input type="hidden" name="_captcha" value="false">
+        <div class="form-group">
+          <i class="fas fa-user"></i>
+          <label for="contactName">Your Name</label>
+          <input type="text" id="contactName" name="name" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+          <i class="fas fa-envelope"></i>
+          <label for="contactEmail">Email Address</label>
+          <input type="email" id="contactEmail" name="email" placeholder="example@domain.com" required>
+        </div>
+        <div class="form-group">
+          <i style="top: 33%" class="fas fa-comment"></i>
+          <label for="contactMessage">Your Message</label>
+          <textarea id="contactMessage" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+        </div>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Contact Details -->
+    <div class="contact-details">
+      <h2>Contact Information</h2>
+      <p><i class="fas fa-phone"></i> +233 (0) 594 121 246</p>
+      <p><i class="fas fa-envelope"></i> support@primalcustoms.com</p>
+      <p><i class="fas fa-map-marker-alt"></i> 123 Fashion Ave, Accra, Ghana</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Primal Customs. All Rights Reserved.</p>
+    <p>
+      <a href="#">Privacy Policy</a> | <a href="#">Terms of Use</a>
+    </p>
+    <div class="social-icons">
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+  </footer>
+</body>
+</html>

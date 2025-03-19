@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms & Conditions - Primal Customs</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* Base & General Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(135deg, #141e30, #243b55);
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    a {
+      color: #ff9800;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Navigation Bar */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(0, 0, 0, 0.85);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff9800;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background: #ff9800;
+      color: #141e30;
+      border-radius: 5px;
+    }
+    
+    /* Hero Section */
+    .hero {
+      position: relative;
+      min-height: 50vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+      background: url('images/terms-bg.jpg') center/cover no-repeat;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      animation: fadeIn 1.5s ease;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+    
+    /* Terms & Conditions Content */
+    .terms-container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 40px 20px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .terms-container h2 {
+      font-size: 2.5rem;
+      color: #ff9800;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .terms-section {
+      margin-bottom: 30px;
+    }
+    .terms-section h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: #ff9800;
+    }
+    .terms-section p {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+    .terms-section ul {
+      margin-left: 20px;
+      font-size: 1.1rem;
+    }
+    .terms-section ul li {
+      margin-bottom: 5px;
+    }
+    
+    /* Footer */
+    footer {
+      background: #222;
+      color: #aaa;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.9rem;
+    }
+    footer a {
+      color: #ff9800;
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Primal Customs</div>
+    <nav>
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="shop.html"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="privacy.html"><i class="fas fa-user-shield"></i> Privacy Policy</a></li>
+        <li><a href="terms.html"><i class="fas fa-file-alt"></i> Terms & Conditions</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Terms & Conditions</h1>
+      <p>Please read these terms carefully before using our services.</p>
+    </div>
+  </section>
+  
+  <!-- Terms & Conditions Content -->
+  <section class="terms-container">
+    <h2>Terms & Conditions</h2>
+    
+    <div class="terms-section">
+      <h3>Introduction</h3>
+      <p>Welcome to Primal Customs. By accessing our website and services, you agree to be bound by these Terms & Conditions. These terms govern your use of our site and constitute a binding agreement between you and Primal Customs.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>User Responsibilities</h3>
+      <p>As a user, you agree to use our website responsibly and in compliance with all applicable laws. You are responsible for maintaining the confidentiality of your account information and for all activities that occur under your account.</p>
+      <ul>
+        <li>Provide accurate and current information during registration and purchase.</li>
+        <li>Maintain the security of your account credentials.</li>
+        <li>Avoid engaging in any unauthorized or fraudulent activities.</li>
+      </ul>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Prohibited Activities</h3>
+      <p>You agree not to engage in any activities that may harm the website, its users, or our reputation. This includes, but is not limited to, data harvesting, the spread of malware, or any deceptive practices.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Intellectual Property</h3>
+      <p>All content, including designs, images, and trademarks featured on this website, is the intellectual property of Primal Customs. Unauthorized use or reproduction of any materials is strictly prohibited.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Limitation of Liability</h3>
+      <p>Primal Customs is not liable for any indirect, incidental, or consequential damages arising from your use of our website or services. Use the site at your own risk.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Modifications to the Terms</h3>
+      <p>We reserve the right to modify these Terms & Conditions at any time without prior notice. Changes will be posted on this page and are effective immediately. It is your responsibility to review these terms periodically.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Governing Law</h3>
+      <p>These Terms & Conditions shall be governed by and construed in accordance with the laws of the jurisdiction in which Primal Customs operates. Any disputes arising shall be resolved exclusively in the courts of that jurisdiction.</p>
+    </div>
+    
+    <div class="terms-section">
+      <h3>Contact Us</h3>
+      <p>If you have any questions or concerns regarding these Terms & Conditions, please <a href="contact.html">contact us</a>. We are here to assist you and ensure that your experience with Primal Customs is positive.</p>
+    </div>
+  </section>
+  
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Primal Customs. All Rights Reserved.</p>
+    <p>
+      <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms & Conditions</a>
+    </p>
+  </footer>
+</body>
+</html>
