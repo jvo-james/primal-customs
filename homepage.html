@@ -103,6 +103,9 @@
       overflow: hidden;
       border-radius: 10px;
       margin-bottom: 20px;
+      justify-content: center;  /* Centers the slideshow horizontally */
+  align-items: center;  /* Centers it vertically (if needed) */
+ 
     }
     .slide {
       display: none;
@@ -113,6 +116,10 @@
       object-fit: cover;
       border-radius: 10px;
     }
+    .slideshow-container .slide img {
+  max-width: 80%;  /* Adjust the size to fit well */
+  height: auto;  /* Maintains aspect ratio */
+}
     .fade {
       animation: fadeEffect 1.5s;
     }
