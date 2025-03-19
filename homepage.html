@@ -324,6 +324,17 @@
     transform: translateY(0);
   }
 }
+    @keyframes backgroundMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.hero {
+  background: linear-gradient(-45deg, #141e30, #243b55);
+  background-size: 400% 400%;
+  animation: backgroundMove 10s infinite alternate;
+}
+
     /* ==========================
        Responsive Styles
     ========================== */
@@ -343,14 +354,14 @@
   
   /* Adjust the slideshow container height */
   .slideshow-container {
-    height: 60vh;
-    width: 100%;
+    width: 90%;
+    height: auto;
   }
   
   /* Ensure slideshow images are scaled appropriately */
   .slide img {
-    height: 60vh;
-    width: 100%;
+     width: 100%;
+    height: auto;
     object-fit: cover;
   }
     }
