@@ -168,20 +168,7 @@
       font-size: 0.9rem;
       line-height: 1.4;
     }
-    /* Additional Interactive Section: Video Preview */
-    .hero-video {
-      margin-top: 30px;
-      width: 100%;
-      max-width: 600px;
-      border: 2px solid #ff9800;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-    }
-    .hero-video video {
-      width: 100%;
-      display: block;
-    }
+  
     
     /* Call-to-Action Buttons */
     .hero-buttons {
@@ -347,6 +334,7 @@
        Responsive Styles
     ========================== */
     @media (max-width: 768px) {
+      body { padding: 40px; }
       header { flex-direction: column; padding: 15px; }
       nav ul { flex-wrap: wrap; gap: 10px; }
       nav ul li a { font-size: 14px; }
@@ -355,8 +343,7 @@
       .hero-extra .card { width: 140px; padding: 15px; }
       .hero-extra .card i { font-size: 2rem; }
       .hero-video { max-width: 90%; }
-      .slideshow-container { max-height: 30vh; }
-      .slide img { height: 30vh; }
+      
     }
   </style>
 </head>
@@ -380,27 +367,7 @@
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <h1>Discover Your Unique Style</h1>
-    <div class="hero-extra-content" style="margin-top: 30px; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; animation: fadeInUp 1s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);">
-  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
-    <i class="fas fa-tshirt" style="margin-right: 10px;"></i> Premium Printed Shirts
-  </div>
-  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
-    Experience the perfect blend of modern art and fashion. Each design is expertly printed on high-quality shirts that promise both vibrancy and longevity.
-  </p>
-  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
-    <i class="fas fa-palette" style="margin-right: 10px;"></i> Exclusive Creative Collection
-  </div>
-  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
-    Our collection features innovative designs that transform everyday apparel into extraordinary wearable art.
-  </p>
-  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
-    <i class="fas fa-star" style="margin-right: 10px;"></i> Elevate Your Style
-  </div>
-  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
-    Discover tops that redefine comfort and style—designed exclusively for you.
-  </p>
-</div>
-
+  
       <!-- Reduced Slideshow -->
       <div class="slideshow-container">
         <div class="slide fade">
@@ -451,6 +418,27 @@
   <!-- (Other sections such as Featured Products, Testimonials, and Footer would follow here) -->
     <!-- Featured Products Section -->
   <section class="products">
+      <div class="hero-extra-content" style="margin-top: 30px; padding: 20px; background: rgba(0, 0, 0, 0.5); border-radius: 10px; animation: fadeInUp 1s ease; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);">
+  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
+    <i class="fas fa-tshirt" style="margin-right: 10px;"></i> Premium Printed Shirts
+  </div>
+  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
+    Experience the perfect blend of modern art and fashion. Each design is expertly printed on high-quality shirts that promise both vibrancy and longevity.
+  </p>
+  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
+    <i class="fas fa-palette" style="margin-right: 10px;"></i> Exclusive Creative Collection
+  </div>
+  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
+    Our collection features innovative designs that transform everyday apparel into extraordinary wearable art.
+  </p>
+  <div style="margin-bottom: 15px; font-size: 1.2rem; color: #ff9800; font-weight: 600; letter-spacing: 0.5px;">
+    <i class="fas fa-star" style="margin-right: 10px;"></i> Elevate Your Style
+  </div>
+  <p style="font-size: 1rem; line-height: 1.6; margin: 10px 0; color: #f1f1f1;">
+    Discover tops that redefine comfort and style—designed exclusively for you.
+  </p>
+</div>
+
     <h2>Featured Products</h2>
     <div class="product-grid">
       <div class="product-card">
