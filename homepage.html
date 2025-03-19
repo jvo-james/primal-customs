@@ -228,12 +228,21 @@ nav ul li a:hover {
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* 2x2 Grid */
-    gap: 15px;
-    justify-content: center;
-    max-width: 800px;
-    margin: auto;
+    gap: 20px;
+    
+    max-width: 1000px;
+    margin: 40px auto;
 }
-
+.featured-grid .product {
+  max-width: 220px; /* Increased size */
+  margin: 0 auto;
+  
+}
+    .featured-grid .design-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
 .product img {
     width: 100%;  /* Make images responsive */
     max-width: 150px; /* Set smaller image size */
@@ -375,6 +384,22 @@ nav ul li a:hover {
         max-width: 400px;
     }
     }
+    @media screen and (min-width: 769px) {
+  /* Adjust slideshow container and image to be smaller */
+  .slideshow-container {
+    height: 40vh;
+    width: 80%;
+    margin: 20px auto;
+  }
+  .slide img {
+    height: 40vh;
+    object-fit: contain;
+  }
+  
+  /* Ensure hero extra is displayed as 4x1 grid (already set above) */
+  .hero-extra {
+    grid-template-columns: repeat(4, 1fr);
+  } }
   </style>
 </head>
 <body>
