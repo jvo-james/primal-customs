@@ -390,17 +390,45 @@
   }
  
  
-
-.navbar { flex-direction: column; padding: 15px; position: fixed;
+ .navbar {
+    position: fixed;
     top: 0;
-    left: 0;}
-      nav ul { flex-wrap: wrap; gap: 10px; }
-      nav ul li a { font-size: 14px; }
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px; /* Reduce padding for a compact look */
+  }
   
   /* Push content down to avoid overlap */
   body {
     padding-top: 60px;
   }
+
+  /* Make nav links smaller and in one row */
+  .nav-links {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    justify-content: center;
+    gap: 8px; /* Reduce spacing between items */
+  }
+
+  .nav-links li {
+    margin: 0;
+  }
+
+  .nav-links a, .nav-links button {
+    font-size: 12px; /* Reduce font size for smaller screens */
+    padding: 5px 8px;
+  }
+
+  /* Reduce logo size */
+  .navbar .logo {
+    font-size: 18px;
+  }
+
 
 
 
