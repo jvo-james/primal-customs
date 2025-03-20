@@ -260,25 +260,62 @@ nav ul li a:hover {
     font-weight: bold;
     margin-top: 5px;
 }
-
+/* 🌟 Stunning Purchase Button */
 .purchase-btn {
-    display: block;
-    width: 200px;
-    margin: 20px auto 0;
-    padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background: #ff5733;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 220px; /* Slightly larger for better emphasis */
+  padding: 14px 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(135deg, #ff9800, #ff5733);
+  border: none;
+  border-radius: 50px; /* Rounded corners */
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  box-shadow: 0 5px 15px rgba(255, 152, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
 }
 
-.purchase-btn:hover {
-    background: #e14e2b;
+/* 🛒 Add Shopping Cart Icon Styling */
+.purchase-btn i {
+  font-size: 22px;
+  transition: transform 0.3s ease-in-out;
 }
+
+/* 🌟 Glowing Hover Effect */
+.purchase-btn:hover {
+  background: linear-gradient(135deg, #ff5733, #ff9800);
+  box-shadow: 0 0 20px rgba(255, 87, 51, 0.8);
+  transform: translateY(-3px); /* Slight lift effect */
+}
+
+/* 🛒 Hover Effect on Icon */
+.purchase-btn:hover i {
+  transform: rotate(360deg); /* Cool spin animation */
+}
+
+/* 🔥 Button Click Effect */
+.purchase-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 10px rgba(255, 87, 51, 0.5);
+}
+
+/* 📱 Mobile Optimization */
+@media (max-width: 768px) {
+  .purchase-btn {
+    width: 180px; /* Smaller width for mobile */
+    font-size: 18px;
+    padding: 12px 18px;
+  }
+}
+
+
 
     /* ==========================
        Testimonials Section
@@ -369,7 +406,7 @@ nav ul li a:hover {
   .slideshow-container {
     width: 90%;
     height: auto;
-    padding-left: 22px;
+    padding-left: 18px;
   }
    .prev { left: 25px; }
     .next { right: 5px; }
@@ -537,8 +574,8 @@ nav ul li a:hover {
   <footer>
     <p>© 2025 Primal Customs. All Rights Reserved.</p>
     <p>
-      <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
-      <a href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>
+      <a style="color: #ff9800" href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
+      <a style="color: #ff9800" href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>
     </p>
     <div class="social-icons">
       <a href="#"><i class="fab fa-facebook-f"></i></a>
