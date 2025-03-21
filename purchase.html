@@ -357,15 +357,15 @@
           <input type="text" id="buyerName" name="buyerAddress" placeholder="Hostel Name/ Your Address" required>
         </div>
         <!-- Payment Method (Select) -->
-        <div class="form-group">
-          <i class="fas fa-credit-card"></i>
-          <label for="paymentMethod">Payment Method</label>
-          <select id="paymentMethod" name="paymentMethod" class="payment-method" required>
-            <option value="" disabled selected>--Select Payment Method--</option>
-            <option value="MTN">MTN Mobile Money</option>
-            <option value="Vodafone">Vodafone Cash</option>
-            <option value="AirtelTigo">AirtelTigo Money</option>
-            <option value="Bank">Bank Transfer</option>
+       <div class="form-group">
+          <i class="fas fa-ruler"></i>
+          <label for="tshirtSize">Select Size</label>
+          <select id="tshirtSize" name="tshirtSize" required>
+            <option value="" disabled selected>-- Select Size --</option>
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="XL">Extra Large</option>
           </select>
 
           
@@ -377,7 +377,7 @@
         </div>
         <!-- Submit Button -->
         
-        <button type="button" onclick="processPayment()" class="purchase-btn">
+        <button type="submit" class="purchase-btn">
   <i class="fas fa-credit-card"></i> Proceed to Payment
 </button>
 
@@ -409,42 +409,29 @@ function processPayment() {
   const authHeader = "Basic " + btoa(clientId + ":" + clientSecret);
 
   // Create payment request payload
-  const paymentData = {
-    "invoice": {
-      "totalAmount": amountToPay,
-      "description": "Primal Customs Purchase",
-      "callbackUrl": "https://jvo-james.github.io/primal-customs/payment-success.html",
-      "customerPhoneNumber": buyerPhone,
-      "merchantAccountNumber": "0594121246", // Replace with your Hubtel Merchant ID
-      "cancellationUrl": "https://jvo-james.github.io/primal-customs/payment-failed.html" // Optional
+  function processPayment(event) {
+      event.preventDefault();
+      const phone = document.getElementById("buyerPhone").value;
+      fetch("https://api.hubtel.com/v1/merchantaccount/onlinecheckout/invoice/create", {
+        method: "POST",
+        headers: {
+          "Authorization": "Basic " + btoa("CLIENT_ID:CLIENT_SECRET"),
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          invoice: {
+            totalAmount: 80,
+            description: "Primal Customs Purchase",
+            callbackUrl: "payment-success.html",
+            customerPhoneNumber: phone,
+            merchantAccountNumber: "0594121246"
+          }
+        })
+      })
+      .then(response => response.json())
+      .then(data => window.location.href = data.checkoutUrl)
+      .catch(error => alert("Payment failed"));
     }
-  };
-
-  // Send payment request
-  fetch("https://api.hubtel.com/v1/merchantaccount/onlinecheckout/invoice/create", {
-    method: "POST",
-    headers: {
-      "Authorization": authHeader,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(paymentData)
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.responseCode === "0000") {
-      // Redirect user to Hubtel payment page
-      window.location.href = data.checkoutUrl;
-    } else {
-      alert("Payment failed: " + data.responseMessage);
-    }
-  })
-  .catch(error => {
-    console.error("Error:", error);
-    alert("An error occurred. Please try again.");
-  });
-}
-
-
 
 
 
