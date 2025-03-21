@@ -7,6 +7,8 @@
   <!-- Font Awesome and Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://js.hubtel.com/hubtel-pay.js"></script>
+
   <style>
     /* Base Styles */
     body {
@@ -365,6 +367,8 @@
             <option value="AirtelTigo">AirtelTigo Money</option>
             <option value="Bank">Bank Transfer</option>
           </select>
+
+          
         </div>
         <!-- Terms & Conditions -->
         <div class="form-group terms-group">
@@ -372,7 +376,11 @@
           <label for="terms">I agree to the <a href="https://jvo-james.github.io/primal-customs/terms.html" target="_blank" style="color:#ff9800;">Terms & Conditions</a> and <a href="privacy.html" target="_blank" style="color:#ff9800;">Privacy Policy</a>.</label>
         </div>
         <!-- Submit Button -->
-        <button type="submit">Proceed to Payment</button>
+        
+        <button type="button" onclick="processPayment()" class="purchase-btn">
+  <i class="fas fa-credit-card"></i> Proceed to Payment
+</button>
+
       </form>
     </div>
   </div>
@@ -391,7 +399,30 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("No product data found.");
   }
 });
-
+  function processPayment() {
+    fetch('https://api.hubtel.com/v1/merchantaccount/transactions/charge', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + btoa('amihaswn:qhxvwuss'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        amount: 80,  // Change this dynamically based on order
+        customerNumber: document.getElementById("buyerPhone").value, // Get user phone number
+        description: "Primal Customs Purchase",
+        callbackUrl: "https://jvo-james.github.io/primal-customs/payment-success.html"
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "Success") {
+        alert("Payment initiated! Approve it on your phone.");
+      } else {
+        alert("Payment failed. Please try again.");
+      }
+    })
+    .catch(error => console.error("Error:", error));
+  }
   </script>
 </body>
 </html>
