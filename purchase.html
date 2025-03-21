@@ -399,30 +399,56 @@ document.addEventListener("DOMContentLoaded", function() {
     console.log("No product data found.");
   }
 });
-  function processPayment() {
-    fetch('https://api.hubtel.com/v1/merchantaccount/transactions/charge', {
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + btoa('amihaswn:qhxvwuss'),
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        amount: 80,  // Change this dynamically based on order
-        customerNumber: document.getElementById("buyerPhone").value, // Get user phone number
-        description: "Primal Customs Purchase",
-        callbackUrl: "https://jvo-james.github.io/primal-customs/payment-success.html"
-      })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.status === "Success") {
-        alert("Payment initiated! Approve it on your phone.");
-      } else {
-        alert("Payment failed. Please try again.");
-      }
-    })
-    .catch(error => console.error("Error:", error));
-  }
+function processPayment() {
+  const customerPhone = document.getElementById("buyerPhone").value;
+  const amountToPay = 80; // Change dynamically if needed
+
+  // Hubtel API authentication
+  const clientId = "amihaswn";  // Replace with your actual Client ID
+  const clientSecret = "qhxvwuss";  // Replace with your actual Client Secret
+  const authHeader = "Basic " + btoa(clientId + ":" + clientSecret);
+
+  // Create payment request payload
+  const paymentData = {
+    "invoice": {
+      "totalAmount": amountToPay,
+      "description": "Primal Customs Purchase",
+      "callbackUrl": "https://jvo-james.github.io/primal-customs/payment-success.html",
+      "customerPhoneNumber": buyerPhone,
+      "merchantAccountNumber": "0594121246", // Replace with your Hubtel Merchant ID
+      "cancellationUrl": "https://jvo-james.github.io/primal-customs/payment-failed.html" // Optional
+    }
+  };
+
+  // Send payment request
+  fetch("https://api.hubtel.com/v1/merchantaccount/onlinecheckout/invoice/create", {
+    method: "POST",
+    headers: {
+      "Authorization": authHeader,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(paymentData)
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.responseCode === "0000") {
+      // Redirect user to Hubtel payment page
+      window.location.href = data.checkoutUrl;
+    } else {
+      alert("Payment failed: " + data.responseMessage);
+    }
+  })
+  .catch(error => {
+    console.error("Error:", error);
+    alert("An error occurred. Please try again.");
+  });
+}
+
+
+
+
+
+    
   </script>
 </body>
 </html>
