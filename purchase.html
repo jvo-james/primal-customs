@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
+   <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+ 
   <style>
     /* Base Styles */
     body {
@@ -290,36 +293,41 @@
     <!-- Purchase Form Section -->
     <div class="purchase-form-container">
       <h3>Complete Your Purchase</h3>
-      <form id="purchaseForm" method="POST">
+      <form id="purchaseForm" action="https://formsubmit.co/jadelsjames@gmail.com@domain.com" method="POST">
+       <input type="hidden" name="_next" value="https://jvo-james.github.io/primal-customs/payment-success.html">
+        <!--  other hidden inputs -->
+        <input type="hidden" id="hiddenProductImage" name="Product Image">
+        <input type="hidden" id="hiddenProductTitle" name="Product Title">
+        <input type="hidden" id="hiddenProductDescription" name="Product Description">
         <!-- Full Name -->
         <div class="form-group">
           <i class="fas fa-user"></i>
           <label for="buyerName">Full Name</label>
-          <input type="text" id="buyerName" name="buyerName" placeholder="Enter your full name" required>
+          <input type="text" id="buyerName" name="Full Name" placeholder="Enter your full name" required>
         </div>
         <!-- Email Address -->
         <div class="form-group">
           <i class="fas fa-envelope"></i>
           <label for="buyerEmail">Email Address</label>
-          <input type="email" id="buyerEmail" name="buyerEmail" placeholder="example@domain.com" required>
+          <input type="email" id="buyerEmail" name="Email" placeholder="example@domain.com" required>
         </div>
         <!-- Phone Number -->
         <div class="form-group">
           <i class="fas fa-phone"></i>
           <label for="buyerPhone">Phone Number</label>
-          <input type="text" id="buyerPhone" name="buyerPhone" placeholder="Enter your phone number" required>
+          <input type="text" id="buyerPhone" name="Phone Number" placeholder="Enter your phone number" required>
         </div>
         <!-- Shipping Address -->
         <div class="form-group">
           <i class="fas fa-map-marker-alt"></i>
           <label for="buyerAddress">Buyer's Address</label>
-          <input type="text" id="buyerAddress" name="buyerAddress" placeholder="Hostel Name/ Your Address" required>
+          <input type="text" id="buyerAddress" name="Address" placeholder="Hostel Name/ Your Address" required>
         </div>
         <!-- T-Shirt Size -->
         <div class="form-group">
           <i class="fas fa-ruler"></i>
           <label for="tshirtSize">Select Size</label>
-          <select id="tshirtSize" name="tshirtSize" required>
+          <select id="tshirtSize" name="Shirt Size" required>
             <option value="" disabled selected>-- Select Size --</option>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
@@ -329,7 +337,7 @@
         </div>
         <!-- Terms & Conditions -->
         <div class="form-group terms-group">
-          <input type="checkbox" id="terms" name="terms" required>
+          <input type="checkbox" id="terms" name="Terms Accepted" required>
           <label for="terms">I agree to the <a href="https://jvo-james.github.io/primal-customs/terms.html" target="_blank" style="color:#ff9800;">Terms & Conditions</a> and <a href="privacy.html" target="_blank" style="color:#ff9800;">Privacy Policy</a>.</label>
         </div>
         <!-- Proceed to Payment Button -->
@@ -350,6 +358,10 @@
         document.getElementById("productImage").src = product.image;
         document.getElementById("productTitle").innerText = product.title;
         document.getElementById("productDescription").innerText = product.description;
+         // Set the hidden fields for form submission
+        document.getElementById("hiddenProductImage").value = product.image;
+        document.getElementById("hiddenProductTitle").value = product.title;
+        document.getElementById("hiddenProductDescription").value = product.description;
       } else {
         console.log("No product data found.");
       }
@@ -384,7 +396,6 @@
       let handler = PaystackPop.setup({
         key: 'pk_live_dd07f23cf443b82c546aa66cd92a0aa3f5088ce2', // Replace with your actual Paystack public key
         email: document.getElementById("buyerEmail").value,
-        number: document.getElementById("buyerPhone").value,
         amount: 8, // 80 cedis in pesewas (smallest currency unit)
         currency: "GHS",
         ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
@@ -407,6 +418,49 @@
         }
       });
       handler.openIframe(); // Open the Paystack payment modal
+    }
+
+     // EmailJS: Send a confirmation email to the customer.
+    function sendConfirmationEmail() {
+      const templateParams = {
+        to_name: document.getElementById("buyerName").value,
+    to_email: document.getElementById("buyerEmail").value,
+    buyer_phone: document.getElementById("buyerPhone").value,
+    buyer_address: document.getElementById("buyerAddress").value,
+    tshirt_size: document.getElementById("tshirtSize").value,
+    // These values come from the hidden fields populated earlier.
+    product_image: document.getElementById("hiddenProductImage").value,
+    product_title: document.getElementById("hiddenProductTitle").value,
+    product_description: document.getElementById("hiddenProductDescription").value,
+    amount_paid: "80 cedis",  // Static value or you can calculate dynamically if needed.
+    instructions: "Thank you for your purchase! To receive your order, please follow these steps:\n\n1. Check your email for shipping details.\n2. Confirm your delivery address if contacted by our support team.\n3. Track your order using the tracking number provided in subsequent emails.\n\nWe appreciate your business and are here to help if you have any questions."
+   };
+      emailjs.send('service_cd8p711', 'template_jm6ql4i', templateParams)
+        .then(function(response) {
+          console.log('Confirmation email sent successfully!', response.status, response.text);
+        }, function(error) {
+          console.log('Failed to send confirmation email:', error);
+        });
+    }
+
+      // Submit the form data to FormSubmit using a POST request.
+    function submitFormData() {
+      const form = document.getElementById("purchaseForm");
+      // Create a FormData object from the form.
+      const formData = new FormData(form);
+      // Submit to FormSubmit endpoint.
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+      })
+      .then(response => {
+        // After submission, redirect to payment-successful.html.
+        window.location.href = "payment-successful.html";
+      })
+      .catch(error => {
+        console.error("Form submission error:", error);
+        alert("There was an error processing your order. Please try again.");
+      });
     }
   </script>
 </body>
