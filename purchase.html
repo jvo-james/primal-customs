@@ -349,11 +349,7 @@
   </div>
   
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
-  <script>
-    (function(){
-    emailjs.init("mRkmngSQa0dzBfRS8"); // Replace with your actual EmailJS user ID.
-  })();
-    
+  <script> 
     document.addEventListener("DOMContentLoaded", function() {
       // Load selected product details from localStorage
       const selectedProductData = localStorage.getItem("selectedProduct");
@@ -474,5 +470,8 @@
       });
     }
   </script>
+  <script>  (function(){
+    emailjs.init("mRkmngSQa0dzBfRS8"); // Replace with your actual EmailJS user ID.
+  })();</script>
 </body>
 </html>
