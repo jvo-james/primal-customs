@@ -348,7 +348,7 @@
     </div>
   </div>
   
-  <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
+    <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
   <script> 
     document.addEventListener("DOMContentLoaded", function() {
       // Load selected product details from localStorage
@@ -408,23 +408,24 @@
             }
           ]
         },
-    callback: function(response){
-  // Send the confirmation email and return its promise
-  sendConfirmationEmail()
-    .then(() => {
-      // After email is sent, submit the form data
-      return submitFormData();
-    })
-    .then(() => {
-      // After both operations succeed, redirect
-      window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
-    })
-    .catch(error => {
-      console.error("An error occurred during email/form submission:", error);
-      alert("There was an error processing your order. Please try again.");
-    });
-}
-
+        callback: function(response){
+           // First, send the confirmation email
+  sendConfirmationEmail();
+  // Then, submit the form data
+  submitFormData();
+  // Optionally, you can wait a short time or chain promises before redirecting
+  setTimeout(function(){
+          // On successful payment, redirect to payment-successful.html
+          window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
+        }, 2000);
+        },
+        onClose: function(){
+          // When the payment modal is closed (or cancelled) show an alert
+          alert("Payment Unsuccessful, please try again.");
+        }
+      });
+      handler.openIframe(); // Open the Paystack payment modal
+    }
 
      // EmailJS: Send a confirmation email to the customer.
     function sendConfirmationEmail() {
@@ -441,30 +442,33 @@
     amount_paid: "80 cedis",  // Static value or you can calculate dynamically if needed.
     instructions: "Thank you for your purchase! To receive your order, please follow these steps:\n\n1. Check your email for shipping details.\n2. Confirm your delivery address if contacted by our support team.\n3. Track your order using the tracking number provided in subsequent emails.\n\nWe appreciate your business and are here to help if you have any questions."
    };
-      return emailjs.send('service_cd8p711', 'template_jm6ql4i', templateParams)
-    .then(function(response) {
-      console.log('Confirmation email sent successfully!', response.status, response.text);
-      return response;
-    }, function(error) {
-      console.log('Failed to send confirmation email:', error);
-      throw error;
-    });
-}
+      emailjs.send('service_cd8p711', 'template_jm6ql4i', templateParams)
+        .then(function(response) {
+          console.log('Confirmation email sent successfully!', response.status, response.text);
+        }, function(error) {
+          console.log('Failed to send confirmation email:', error);
+        });
+    }
 
       // Submit the form data to FormSubmit using a POST request.
-   function submitFormData() {
-  const form = document.getElementById("purchaseForm");
-  const formData = new FormData(form);
-  return fetch(form.action, {
-    method: "POST",
-    body: formData,
-  })
-  .then(response => {
-    console.log("Form submitted successfully");
-    return response;
-  });
-}
-
+    function submitFormData() {
+      const form = document.getElementById("purchaseForm");
+      // Create a FormData object from the form.
+      const formData = new FormData(form);
+      // Submit to FormSubmit endpoint.
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+      })
+      .then(response => {
+        // After submission, redirect to payment-successful.html.
+        window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
+      })
+      .catch(error => {
+        console.error("Form submission error:", error);
+        alert("There was an error processing your order. Please try again.");
+      });
+    }
   </script>
   <script>  (function(){
     emailjs.init("mRkmngSQa0dzBfRS8"); // Replace with your actual EmailJS user ID.
