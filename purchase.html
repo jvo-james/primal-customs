@@ -399,38 +399,58 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-  // Handle the button click to process payment using Paystack
-    document.getElementById("paystack-button").addEventListener("click", function() {
-      // Get buyer information from the form
-      const name = document.getElementById("buyerName").value;
-      const email = document.getElementById("buyerEmail").value;
-      const phone = document.getElementById("buyerPhone").value;
-      const amount = 80; 
+ // Listen for form submission
+  document.getElementById("purchaseForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // Prevent the default POST submission
 
-      const amount = amountInCedis * 100; 
-      // Setup Paystack payment modal
-      var handler = PaystackPop.setup({
-        key: "pk_test_297586e51710e83d3c159bfe71ff45c7e23411fa",  // Replace with your public Paystack key
-        email: email,                        // Customer email
-        amount: amount,                // Convert amount to kobo
-        currency: "GHS",                     // Currency (NGN for Nigerian Naira)
-        reference: "order_" + new Date().getTime(),  // Unique transaction reference
-        callback: function(response) {
-          // Handle successful payment
-          alert("Payment successful! Transaction reference: " + response.reference);
-          // Optionally, redirect to a success page
-          window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html?ref=" + response.reference;
-        },
-        onClose: function() {
-          alert("Payment window closed.");
-        }
-      });
-
-      // Open the Paystack inline payment iframe
-      handler.openIframe();
-    });
+    // Call your payment processing function
+    processPayment();
   });
- 
+
+  // Process Payment using Hubtel API
+  function processPayment() {
+    // Get phone number from input field
+    const phone = document.getElementById("buyerPhone").value;
+
+    // Build the payment payload. Adjust the totalAmount and description as needed.
+    const paymentData = {
+      invoice: {
+        totalAmount: 80, // Default amount; change as needed
+        description: "Primal Customs Purchase",
+        callbackUrl: "https://jvo-james.github.io/primal-customs/payment-success.html",
+        customerPhoneNumber: phone,
+        merchantAccountNumber: "0594121246" // Replace with your actual Hubtel Merchant Account Number
+      }
+    };
+
+    // Replace with your actual Hubtel credentials
+    const clientId = "amihaswn";
+    const clientSecret = "qhxvwuss";
+    const authHeader = "Basic " + btoa(clientId + ":" + clientSecret);
+
+    fetch("https://api.hubtel.com/v1/merchantaccount/onlinecheckout/invoice/create", {
+      method: "POST",
+      headers: {
+        "Authorization": authHeader,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(paymentData)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.responseCode === "0000") {
+        // Redirect user to Hubtel checkout page on success
+        window.location.href = data.checkoutUrl;
+      } else {
+        alert("Payment failed: " + data.responseMessage);
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      alert("An error occurred. Please try again.");
+    });
+  }
+
 
   </script>
 </body>
