@@ -7,6 +7,7 @@
   <!-- Font Awesome and Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
   <style>
     /* Base Styles */
@@ -116,41 +117,38 @@
       margin-bottom: 5px;
       font-weight: 600;
     }
-/* --- Custom Input Field Styling & Animations --- */
-.form-group input,
-.form-group textarea,
-.form-group select {
-  width: 80%;
-  padding: 12px 45px 12px 50px; /* Increased left padding for icons */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  background: #f2f2f2;
-  transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-  outline: none;
-}
-
-/* Focus Effects with a gentle pulse animation (plays once on focus) */
-@keyframes pulseOnce {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  border-color: #ff9800;
-  box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
-  animation: pulseOnce 0.5s ease-in-out;
-}
-
-/* Hover effect for a subtle border change */
-.form-group input:hover,
-.form-group textarea:hover,
-.form-group select:hover {
-  border-color: #ff9800;
-}
+    /* --- Custom Input Field Styling & Animations --- */
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 80%;
+      padding: 12px 45px 12px 50px; /* Increased left padding for icons */
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      background: #f2f2f2;
+      transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      outline: none;
+    }
+    /* Focus Effects with a gentle pulse animation (plays once on focus) */
+    @keyframes pulseOnce {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #ff9800;
+      box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+      animation: pulseOnce 0.5s ease-in-out;
+    }
+    /* Hover effect for a subtle border change */
+    .form-group input:hover,
+    .form-group textarea:hover,
+    .form-group select:hover {
+      border-color: #ff9800;
+    }
     .form-group i {
       position: absolute;
       left: 10px;
@@ -194,114 +192,101 @@
     .purchase-form-container button:hover {
       background: #e68900;
     }
-    
     /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
     
-
-@media (max-width: 768px) {
-  /* General Mobile Adjustments */
-  body {
-    font-size: 14px;
-    padding-top: 20px; /* Prevent navbar from covering content */
-    width: 100%;
-    overflow-x: hidden; /* Remove horizontal scrolling */
-  }
-
-  /* Navigation Bar */
-  nav {
-    padding: 10px 15px;
-  }
-  nav .nav-links {
-    display: flex;
-    gap: 10px;
-  }
-  nav .nav-links a {
-    font-size: 14px;
-    padding: 5px;
-  }
-
-  /* Container Adjustments */
-  .container {
-    width: 95%;
-    max-width: 100%;
-    margin: 80px auto 0;
-    padding: 15px;
-    min-height: calc(100vh - 80px);
-    box-sizing: border-box;
-  }
-
-  /* Product Info Section */
-  .product-info-container {
-    flex: 1 1 100%;
-    text-align: center;
-    padding: 15px;
-  }
-  .product-info-container img {
-    max-height: 250px;
-    width: 100%;
-  }
-  .product-info-container h2 {
-    font-size: 20px;
-  }
-  .product-info-container p {
-    font-size: 14px;
-  }
-
-  /* Purchase Form Section */
-  .purchase-form-container {
-    flex: 1 1 100%;
-    padding: 15px;
-  }
-  .purchase-form-container h3 {
-    font-size: 18px;
-  }
-
-  /* Form Fields */
-  .form-group {
-    margin-bottom: 15px;
-    position: relative;
-  }
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%; /* Ensure inputs fit within the container */
-    max-width: 100%;
-    padding: 12px 15px 12px 45px; /* Adjust padding */
-    font-size: 14px; /* Reduce font size slightly */
-    box-sizing: border-box;
-  }
-
-  /* Fix Payment Method Field (Prevent Icon Overlapping Text) */
-  .form-group select {
-    padding-left: 50px !important; /* Shift text away from icon */
-  }
-
-  /* Icons in Form Fields */
-  .form-group i {
-    font-size: 16px;
-    left: 15px;
-    top: 70%;
-    transform: translateY(-50%);
-  }
-
-  /* Terms & Conditions */
-  .terms-group label {
-    font-size: 13px;
-  }
-
-  /* Submit Button */
-  .purchase-form-container button {
-    font-size: 16px;
-    padding: 10px;
-    width: 100%;
-  }
-}
-
-
+    @media (max-width: 768px) {
+      /* General Mobile Adjustments */
+      body {
+        font-size: 14px;
+        padding-top: 20px;
+        width: 100%;
+        overflow-x: hidden;
+      }
+      /* Navigation Bar */
+      nav {
+        padding: 10px 15px;
+      }
+      nav .nav-links {
+        display: flex;
+        gap: 10px;
+      }
+      nav .nav-links a {
+        font-size: 14px;
+        padding: 5px;
+      }
+      /* Container Adjustments */
+      .container {
+        width: 95%;
+        max-width: 100%;
+        margin: 80px auto 0;
+        padding: 15px;
+        min-height: calc(100vh - 80px);
+        box-sizing: border-box;
+      }
+      /* Product Info Section */
+      .product-info-container {
+        flex: 1 1 100%;
+        text-align: center;
+        padding: 15px;
+      }
+      .product-info-container img {
+        max-height: 250px;
+        width: 100%;
+      }
+      .product-info-container h2 {
+        font-size: 20px;
+      }
+      .product-info-container p {
+        font-size: 14px;
+      }
+      /* Purchase Form Section */
+      .purchase-form-container {
+        flex: 1 1 100%;
+        padding: 15px;
+      }
+      .purchase-form-container h3 {
+        font-size: 18px;
+      }
+      /* Form Fields */
+      .form-group {
+        margin-bottom: 15px;
+        position: relative;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        max-width: 100%;
+        padding: 12px 15px 12px 45px;
+        font-size: 14px;
+        box-sizing: border-box;
+      }
+      /* Fix Payment Method Field */
+      .form-group select {
+        padding-left: 50px !important;
+      }
+      /* Icons in Form Fields */
+      .form-group i {
+        font-size: 16px;
+        left: 15px;
+        top: 70%;
+        transform: translateY(-50%);
+      }
+      /* Terms & Conditions */
+      .terms-group label {
+        font-size: 13px;
+      }
+      /* Submit Button */
+      .purchase-form-container button {
+        font-size: 16px;
+        padding: 10px;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -312,19 +297,17 @@
       <ul class="nav-links">
         <li><a href="https://jvo-james.github.io/primal-customs/homepage.html">Home</a></li>
         <li><a href="https://jvo-james.github.io/primal-customs/shop.html">Shop</a></li>
-        
       </ul>
     </div>
   </nav>
   
   <!-- Main Container -->
   <div class="container">
-    <!-- Product Info Section (Smaller Card) -->
+    <!-- Product Info Section -->
     <div class="product-info-container">
-      <!-- Here we display a small product card that shows the selected design details -->
-<img id="productImage" src="" alt="Selected Product">
-<h2 id="productTitle"></h2>
-<p id="productDescription"></p>
+      <img id="productImage" src="" alt="Selected Product">
+      <h2 id="productTitle"></h2>
+      <p id="productDescription"></p>
     </div>
     
     <!-- Purchase Form Section -->
@@ -355,8 +338,8 @@
           <label for="buyerAddress">Buyer's Address</label>
           <input type="text" id="buyerAddress" name="buyerAddress" placeholder="Hostel Name/ Your Address" required>
         </div>
-        <!-- Payment Method (Select) -->
-       <div class="form-group">
+        <!-- T-Shirt Size -->
+        <div class="form-group">
           <i class="fas fa-ruler"></i>
           <label for="tshirtSize">Select Size</label>
           <select id="tshirtSize" name="tshirtSize" required>
@@ -366,8 +349,6 @@
             <option value="Large">Large</option>
             <option value="XL">Extra Large</option>
           </select>
-
-          
         </div>
         <!-- Terms & Conditions -->
         <div class="form-group terms-group">
@@ -375,83 +356,60 @@
           <label for="terms">I agree to the <a href="https://jvo-james.github.io/primal-customs/terms.html" target="_blank" style="color:#ff9800;">Terms & Conditions</a> and <a href="privacy.html" target="_blank" style="color:#ff9800;">Privacy Policy</a>.</label>
         </div>
         <!-- Submit Button -->
-        
         <button type="button" id="paystack-button" class="purchase-btn">
-  <i class="fas fa-credit-card"></i> Proceed to Payment
-</button>
-
+          <i class="fas fa-credit-card"></i> Proceed to Payment
+        </button>
       </form>
     </div>
   </div>
   
-  <!-- JavaScript to Load Selected Product Details -->
+  <!-- JavaScript: Load Product Details and Handle Payment -->
   <script>
-document.addEventListener("DOMContentLoaded", function() {
-  const selectedProductData = localStorage.getItem("selectedProduct");
-  if (selectedProductData) {
-    const product = JSON.parse(selectedProductData);
-    document.getElementById("productImage").src = product.image;
-    document.getElementById("productTitle").innerText = product.title;
-    document.getElementById("productDescription").innerText = product.description;
-  } else {
-    // Optionally, set fallback values if no product is selected
-    console.log("No product data found.");
-  }
-});
-
- // Listen for form submission
-  document.getElementById("purchaseForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Prevent the default POST submission
-
-    // Call your payment processing function
-    processPayment();
-  });
-
-  // Process Payment using Hubtel API
-  function processPayment() {
-    // Get phone number from input field
-    const phone = document.getElementById("buyerPhone").value;
-
-    // Build the payment payload. Adjust the totalAmount and description as needed.
-    const paymentData = {
-      invoice: {
-        totalAmount: 80, // Default amount; change as needed
-        description: "Primal Customs Purchase",
-        callbackUrl: "https://jvo-james.github.io/primal-customs/payment-success.html",
-        customerPhoneNumber: phone,
-        merchantAccountNumber: "0594121246" // Replace with your actual Hubtel Merchant Account Number
-      }
-    };
-
-    // Replace with your actual Hubtel credentials
-    const clientId = "amihaswn";
-    const clientSecret = "qhxvwuss";
-    const authHeader = "Basic " + btoa(clientId + ":" + clientSecret);
-
-    fetch("https://api.hubtel.com/v1/merchantaccount/onlinecheckout/invoice/create", {
-      method: "POST",
-      headers: {
-        "Authorization": authHeader,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(paymentData)
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.responseCode === "0000") {
-        // Redirect user to Hubtel checkout page on success
-        window.location.href = data.checkoutUrl;
+    document.addEventListener("DOMContentLoaded", function() {
+      // Load selected product details from localStorage
+      const selectedProductData = localStorage.getItem("selectedProduct");
+      if (selectedProductData) {
+        const product = JSON.parse(selectedProductData);
+        document.getElementById("productImage").src = product.image;
+        document.getElementById("productTitle").innerText = product.title;
+        document.getElementById("productDescription").innerText = product.description;
       } else {
-        alert("Payment failed: " + data.responseMessage);
+        console.log("No product data found.");
       }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again.");
     });
-  }
 
+    // Listen for button click to initiate Paystack payment
+    document.getElementById("paystack-button").addEventListener("click", function(e) {
+      e.preventDefault(); // Prevent form submission
+      payWithPaystack();
+    });
 
+    function payWithPaystack(){
+      let handler = PaystackPop.setup({
+        key: 'pk_test_297586e51710e83d3c159bfe71ff45c7e23411fa', // Replace with your actual Paystack public key
+        email: document.getElementById("buyerEmail").value,
+        amount: 8000, // 80 cedis in pesewas (smallest currency unit)
+        currency: "GHS",
+        ref: ''+Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Buyer Name",
+              variable_name: "buyer_name",
+              value: document.getElementById("buyerName").value
+            }
+          ]
+        },
+        callback: function(response){
+          // On successful payment, redirect to the payment success page
+          window.location.href = "https://jvo-james.github.io/primal-customs/payment-sucess.html";
+        },
+        onClose: function(){
+          alert('Transaction was cancelled.');
+        }
+      });
+      handler.openIframe(); // Open the Paystack payment modal
+    }
   </script>
 </body>
 </html>
