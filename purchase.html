@@ -293,7 +293,7 @@
     <!-- Purchase Form Section -->
     <div class="purchase-form-container">
       <h3>Complete Your Purchase</h3>
-      <form id="purchaseForm" action="https://formsubmit.co/jamesdeledemsenu23@gmail.com@domain.com" method="POST">
+      <form id="purchaseForm" action="https://formsubmit.co/jamesdeledemsenu23@gmail.com" method="POST">
        <input type="hidden" name="_next" value="https://jvo-james.github.io/primal-customs/payment-success.html">
         <!--  other hidden inputs -->
         <input type="hidden" id="hiddenProductImage" name="Product Image">
@@ -350,6 +350,10 @@
   
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
   <script>
+    (function(){
+    emailjs.init("mRkmngSQa0dzBfRS8"); // Replace with your actual EmailJS user ID.
+  })();
+    
     document.addEventListener("DOMContentLoaded", function() {
       // Load selected product details from localStorage
       const selectedProductData = localStorage.getItem("selectedProduct");
@@ -409,9 +413,16 @@
           ]
         },
         callback: function(response){
+           // First, send the confirmation email
+  sendConfirmationEmail();
+  // Then, submit the form data
+  submitFormData();
+  // Optionally, you can wait a short time or chain promises before redirecting
+  setTimeout(function(){
           // On successful payment, redirect to payment-successful.html
           window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
-        },
+        }, 2000);
+        }
         onClose: function(){
           // When the payment modal is closed (or cancelled) show an alert
           alert("Payment Unsuccessful, please try again.");
