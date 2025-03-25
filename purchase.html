@@ -349,94 +349,88 @@
   </div>
   
     <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
-  <script> 
-    document.addEventListener("DOMContentLoaded", function() {
-      // Load selected product details from localStorage
-      const selectedProductData = localStorage.getItem("selectedProduct");
-      if (selectedProductData) {
-        const product = JSON.parse(selectedProductData);
-        document.getElementById("productImage").src = product.image;
-        document.getElementById("productTitle").innerText = product.title;
-        document.getElementById("productDescription").innerText = product.description;
-         // Set the hidden fields for form submission
-        document.getElementById("hiddenProductImage").value = product.image;
-        document.getElementById("hiddenProductTitle").value = product.title;
-        document.getElementById("hiddenProductDescription").value = product.description;
-      } else {
-        console.log("No product data found.");
-      }
-    });
-
-    // Validate all form fields
-    function isFormValid() {
-      const buyerName = document.getElementById("buyerName").value.trim();
-      const buyerEmail = document.getElementById("buyerEmail").value.trim();
-      const buyerPhone = document.getElementById("buyerPhone").value.trim();
-      const buyerAddress = document.getElementById("buyerAddress").value.trim();
-      const tshirtSize = document.getElementById("tshirtSize").value;
-      const termsAccepted = document.getElementById("terms").checked;
-
-      if (!buyerName || !buyerEmail || !buyerPhone || !buyerAddress || !tshirtSize || !termsAccepted) {
-        return false;
-      }
-      return true;
-    }
-
-    // Listen for button click to initiate Paystack payment
-    document.getElementById("paystack-button").addEventListener("click", function(e) {
-      e.preventDefault(); // Prevent any default form submission
-      if (!isFormValid()) {
-        alert("Please fill in all fields and agree to the Terms & Conditions.");
-        return;
-      }
-      payWithPaystack();
-    });
-
-    function payWithPaystack(){
-      let handler = PaystackPop.setup({
-        key: 'pk_live_6bfe05d4faedad87bfa140551f277b187c56daad', // Replace with your actual Paystack public key
-        email: document.getElementById("buyerEmail").value,
-        amount: 1, // 80 cedis in pesewas (smallest currency unit)
-        currency: "GHS",
-        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
-        metadata: {
-          custom_fields: [
-            {
-              display_name: "Buyer Name",
-              variable_name: "buyer_name",
-              value: document.getElementById("buyerName").value
-            }
-          ]
-        },
-        callback: function(response){
-           // First, send the confirmation email
-  sendConfirmationEmail();
-  // Then, submit the form data
-  submitFormData();
-  // Optionally, you can wait a short time or chain promises before redirecting
-  setTimeout(function(){
-          // On successful payment, redirect to payment-successful.html
-          window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
-        }, 2000);
-        },
-        onClose: function(){
-          // When the payment modal is closed (or cancelled) show an alert
-          alert("Payment Unsuccessful, please try again.");
-        }
-      });
-      handler.openIframe(); // Open the Paystack payment modal
-    }
-
-
-
-
+<script>
   document.addEventListener("DOMContentLoaded", function() {
+    // Initialize EmailJS with your actual user ID (choose one correct value)
     if (window.emailjs) {
-      emailjs.init("t2x4vrzcknDlDKRhV"); // Replace with your actual EmailJS user ID.
+      emailjs.init("YOUR_EMAILJS_USER_ID"); // Replace with your actual EmailJS user ID.
     } else {
       console.error("EmailJS failed to load.");
     }
+
+    // Load selected product details from localStorage
+    const selectedProductData = localStorage.getItem("selectedProduct");
+    if (selectedProductData) {
+      const product = JSON.parse(selectedProductData);
+      document.getElementById("productImage").src = product.image;
+      document.getElementById("productTitle").innerText = product.title;
+      document.getElementById("productDescription").innerText = product.description;
+      // Set the hidden fields for form submission
+      document.getElementById("hiddenProductImage").value = product.image;
+      document.getElementById("hiddenProductTitle").value = product.title;
+      document.getElementById("hiddenProductDescription").value = product.description;
+    } else {
+      console.log("No product data found.");
+    }
   });
+
+  // Validate all form fields
+  function isFormValid() {
+    const buyerName = document.getElementById("buyerName").value.trim();
+    const buyerEmail = document.getElementById("buyerEmail").value.trim();
+    const buyerPhone = document.getElementById("buyerPhone").value.trim();
+    const buyerAddress = document.getElementById("buyerAddress").value.trim();
+    const tshirtSize = document.getElementById("tshirtSize").value;
+    const termsAccepted = document.getElementById("terms").checked;
+
+    return buyerName && buyerEmail && buyerPhone && buyerAddress && tshirtSize && termsAccepted;
+  }
+
+  // Listen for button click to initiate Paystack payment
+  document.getElementById("paystack-button").addEventListener("click", function(e) {
+    e.preventDefault(); // Prevent default form submission
+    if (!isFormValid()) {
+      alert("Please fill in all fields and agree to the Terms & Conditions.");
+      return;
+    }
+    payWithPaystack();
+  });
+
+  function payWithPaystack(){
+    let handler = PaystackPop.setup({
+      key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0', // Replace with your actual Paystack public key
+      email: document.getElementById("buyerEmail").value,
+      amount: 1, // 1 pesewa (for testing) – adjust as needed
+      currency: "GHS",
+      ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
+      metadata: {
+        custom_fields: [
+          {
+            display_name: "Buyer Name",
+            variable_name: "buyer_name",
+            value: document.getElementById("buyerName").value
+          }
+        ]
+      },
+      callback: function(response){
+        // First, send the confirmation email then submit the form data
+        sendConfirmationEmail()
+          .then(() => {
+            submitFormData();
+          })
+          .catch((error) => {
+            console.error("Email sending failed: ", error);
+            // Proceed with form submission even if email sending fails
+            submitFormData();
+          });
+      },
+      onClose: function(){
+        // When the payment modal is closed or cancelled, show an alert
+        alert("Payment Unsuccessful, please try again.");
+      }
+    });
+    handler.openIframe(); // Open the Paystack payment modal
+  }
 
   // EmailJS: Send a confirmation email to the customer.
   function sendConfirmationEmail() {
@@ -449,49 +443,46 @@
       product_image: document.getElementById("hiddenProductImage").value,
       product_title: document.getElementById("hiddenProductTitle").value,
       product_description: document.getElementById("hiddenProductDescription").value,
-      amount_paid: "80 cedis",  // Static value or calculate dynamically if needed.
+      amount_paid: "80 cedis",  // Adjust dynamically if needed
       instructions: "Thank you for your purchase! Check your email for shipping details and order tracking."
     };
-    emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
+
+    // Return the promise so we can chain the submission
+    return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
       .then(function(response) {
         console.log('Confirmation email sent successfully!', response.status, response.text);
       }, function(error) {
         console.log('Failed to send confirmation email:', error);
+        throw error;
       });
   }
 
-  // Submit the form data by performing a normal form submission.
+  // Submit the form data to FormSubmit using a POST request.
   function submitFormData() {
-    document.getElementById("purchaseForm").submit();
+    const form = document.getElementById("purchaseForm");
+    const formData = new FormData(form);
+
+    fetch(form.action, {
+      method: "POST",
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+      if (response.ok) {
+        // Redirect to the _next URL defined in the hidden input
+        window.location.href = form.querySelector('input[name="_next"]').value;
+      } else {
+        throw new Error('Form submission failed.');
+      }
+    })
+    .catch(error => {
+      console.error("Form submission error:", error);
+      alert("There was an error processing your order. Please try again.");
+    });
   }
+</script>
 
-
-
-
-    
-
-      // Submit the form data to FormSubmit using a POST request.
-    function submitFormData() {
-      const form = document.getElementById("purchaseForm");
-      // Create a FormData object from the form.
-      const formData = new FormData(form);
-      // Submit to FormSubmit endpoint.
-      fetch(form.action, {
-        method: "POST",
-        body: formData,
-      })
-      .then(response => {
-        // After submission, redirect to payment-successful.html.
-        window.location.href = "https://jvo-james.github.io/primal-customs/payment-success.html";
-      })
-      .catch(error => {
-        console.error("Form submission error:", error);
-        alert("There was an error processing your order. Please try again.");
-      });
-    }
-  </script>
-  <script>  (function(){
-    emailjs.init("mRkmngSQa0dzBfRS8"); // Replace with your actual EmailJS user ID.
-  })();</script>
 </body>
 </html>
