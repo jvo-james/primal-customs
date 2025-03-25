@@ -369,7 +369,7 @@
       }
     });
 
-    // Validate all form fields
+  // Validate all form fields
     function isFormValid() {
       const buyerName = document.getElementById("buyerName").value.trim();
       const buyerEmail = document.getElementById("buyerEmail").value.trim();
@@ -377,8 +377,13 @@
       const buyerAddress = document.getElementById("buyerAddress").value.trim();
       const tshirtSize = document.getElementById("tshirtSize").value;
       const termsAccepted = document.getElementById("terms").checked;
-      return buyerName && buyerEmail && buyerPhone && buyerAddress && tshirtSize && termsAccepted;
+
+      if (!buyerName || !buyerEmail || !buyerPhone || !buyerAddress || !tshirtSize || !termsAccepted) {
+        return false;
+      }
+      return true;
     }
+
 
     // Listen for button click to initiate Paystack payment
     document.getElementById("paystack-button").addEventListener("click", function(e) {
