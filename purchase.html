@@ -9,7 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
  
   <style>
     /* Base Styles */
@@ -346,14 +347,13 @@
       </form>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-<script>
-   emailjs.init("t2x4vrzcknDlDKRhV");
-</script>
+
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
   <script>
     // Load selected product details from localStorage
     document.addEventListener("DOMContentLoaded", function() {
+      emailjs.init("t2x4vrzcknDlDKRhV");
+      
       const selectedProductData = localStorage.getItem("selectedProduct");
       if (selectedProductData) {
         const product = JSON.parse(selectedProductData);
