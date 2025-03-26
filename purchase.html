@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
  
   <style>
@@ -349,190 +349,138 @@
   </div>
 
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
-
-<script>
-  // Load selected product details from localStorage and initialize EmailJS
-  document.addEventListener("DOMContentLoaded", function() {
-    emailjs.init("t2x4vrzcknDlDKRhV");
-    
-    const selectedProductData = localStorage.getItem("selectedProduct");
-    if (selectedProductData) {
-      const product = JSON.parse(selectedProductData);
-      document.getElementById("productImage").src = product.image;
-      document.getElementById("productTitle").innerText = product.title;
-      document.getElementById("productDescription").innerText = product.description;
-      // Set the hidden fields for form submission
-      document.getElementById("hiddenProductImage").value = product.image;
-      document.getElementById("hiddenProductTitle").value = product.title;
-      document.getElementById("hiddenProductDescription").value = product.description;
-    } else {
-      console.log("No product data found.");
-    }
-  });
-
-  // Function to show inline error messages and focus on the input
-  function showError(inputElement, message) {
-    // Remove any previous error message for this element
-    let existing = inputElement.parentNode.querySelector(".error-message");
-    if (existing) {
-      existing.remove();
-    }
-    let error = document.createElement("span");
-    error.classList.add("error-message");
-    error.style.color = "red";
-    error.style.fontSize = "14px";
-    error.style.display = "block";
-    error.style.marginTop = "5px";
-    error.innerText = message;
-    inputElement.parentNode.appendChild(error);
-    inputElement.focus();
-  }
-
-  // Validate form fields without alerts.
-  function isFormValid() {
-    let valid = true;
-    // Clear all previous error messages
-    document.querySelectorAll(".error-message").forEach(el => el.remove());
-
-    // Full Name: at least two words
-    const buyerName = document.getElementById("buyerName");
-    const nameVal = buyerName.value.trim();
-    if (!/^\S+\s+\S+/.test(nameVal)) {
-      showError(buyerName, "Enter your FULL NAME (first and last name)");
-      valid = false;
-    }
-
-    // Email: basic email validation
-    const buyerEmail = document.getElementById("buyerEmail");
-    const emailVal = buyerEmail.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      showError(buyerEmail, "Enter a valid email address");
-      valid = false;
-    }
-
-    // Phone: exactly 10 digits (only numbers)
-    const buyerPhone = document.getElementById("buyerPhone");
-    const phoneVal = buyerPhone.value.trim();
-    if (!/^\d{10}$/.test(phoneVal)) {
-      showError(buyerPhone, "Enter a valid 10-digit phone number");
-      valid = false;
-    }
-
-    // Address: must not be empty
-    const buyerAddress = document.getElementById("buyerAddress");
-    if (buyerAddress.value.trim() === "") {
-      showError(buyerAddress, "Address is required");
-      valid = false;
-    }
-
-    // T-Shirt Size: must be selected
-    const tshirtSize = document.getElementById("tshirtSize");
-    if (!tshirtSize.value) {
-      showError(tshirtSize, "Select a T-Shirt Size");
-      valid = false;
-    }
-
-    // Terms & Conditions: must be checked
-    const termsAccepted = document.getElementById("terms");
-    if (!termsAccepted.checked) {
-      showError(termsAccepted, "You must accept the Terms & Conditions");
-      valid = false;
-    }
-
-    return valid;
-  }
-
-  // Handle Proceed to Payment button click
-  document.getElementById("paystack-button").addEventListener("click", function(e) {
-    e.preventDefault();
-    if (isFormValid()) {
-      payWithPaystack();
-    }
-  });
-
-  // Payment integration with Paystack remains the same.
-  function payWithPaystack() {
-    let handler = PaystackPop.setup({
-      key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0', // Replace with your actual Paystack public key
-      email: document.getElementById("buyerEmail").value,
-      amount: 1, // 80 cedis in pesewas (smallest currency unit)
-      currency: "GHS",
-      ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Buyer Name",
-            variable_name: "buyer_name",
-            value: document.getElementById("buyerName").value
-          }
-        ]
-      },
-      callback: function(response) {
-        // First, send the confirmation email then submit the form data.
-        sendConfirmationEmail().then(() => {
-          submitFormData();
-        });
-      },
-      onClose: function() {
-        // Optionally, you can add inline error feedback if needed.
-        console.log("Payment modal closed by user.");
+  <script>
+    // Load selected product details from localStorage
+    document.addEventListener("DOMContentLoaded", function() {
+      emailjs.init("t2x4vrzcknDlDKRhV");
+      
+      const selectedProductData = localStorage.getItem("selectedProduct");
+      if (selectedProductData) {
+        const product = JSON.parse(selectedProductData);
+        document.getElementById("productImage").src = product.image;
+        document.getElementById("productTitle").innerText = product.title;
+        document.getElementById("productDescription").innerText = product.description;
+        // Set the hidden fields for form submission
+        document.getElementById("hiddenProductImage").value = product.image;
+        document.getElementById("hiddenProductTitle").value = product.title;
+        document.getElementById("hiddenProductDescription").value = product.description;
+      } else {
+        console.log("No product data found.");
       }
     });
-    handler.openIframe(); // Open the Paystack payment modal
-  }
 
-  // EmailJS: Send a confirmation email to the customer.
-  function sendConfirmationEmail() {
-    const templateParams = {
-      to_name: document.getElementById("buyerName").value,
-      to_email: document.getElementById("buyerEmail").value,
-      buyer_phone: document.getElementById("buyerPhone").value,
-      buyer_address: document.getElementById("buyerAddress").value,
-      tshirt_size: document.getElementById("tshirtSize").value,
-      product_image: document.getElementById("hiddenProductImage").value,
-      product_title: document.getElementById("hiddenProductTitle").value,
-      product_description: document.getElementById("hiddenProductDescription").value,
-      amount_paid: "80 cedis",  // Static value or calculate dynamically if needed.
-      instructions: "Thank you for your purchase! Check your email for shipping details and order tracking."
-    };
-    return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
-      .then(function(response) {
-        console.log('Confirmation email sent successfully!', response.status, response.text);
-      })
-      .catch(function(error) {
-        console.log('Failed to send confirmation email:', error);
-        // Proceed even if email sending fails
-        return Promise.resolve();
-      });
-  }
+  // Validate all form fields
+    function isFormValid() {
+      const buyerName = document.getElementById("buyerName").value.trim();
+      const buyerEmail = document.getElementById("buyerEmail").value.trim();
+      const buyerPhone = document.getElementById("buyerPhone").value.trim();
+      const buyerAddress = document.getElementById("buyerAddress").value.trim();
+      const tshirtSize = document.getElementById("tshirtSize").value;
+      const termsAccepted = document.getElementById("terms").checked;
 
-  // Submit the form data to FormSubmit using a POST request.
-  function submitFormData() {
-    const form = document.getElementById("purchaseForm");
-    const formData = new FormData(form);
-    fetch(form.action, {
-      method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
+      if (!buyerName || !buyerEmail || !buyerPhone || !buyerAddress || !tshirtSize || !termsAccepted) {
+        return false;
       }
-    })
-      .then(response => {
-        console.log("FormSubmit response status:", response.status);
-        return response.json().catch(() => null);
+      return true;
+    }
+
+
+    // Listen for button click to initiate Paystack payment
+    document.getElementById("paystack-button").addEventListener("click", function(e) {
+      e.preventDefault();
+      if (!isFormValid()) {
+        alert("Please fill in all fields and agree to the Terms & Conditions.");
+        return;
+      }
+      payWithPaystack();
+    });
+
+    function payWithPaystack(){
+      let handler = PaystackPop.setup({
+        key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0', // Replace with your actual Paystack public key
+        email: document.getElementById("buyerEmail").value,
+        amount: 1, // 80 cedis in pesewas (smallest currency unit)
+        currency: "GHS",
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1), // Generate a unique reference number
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Buyer Name",
+              variable_name: "buyer_name",
+              value: document.getElementById("buyerName").value
+            }
+          ]
+        },
+        callback: function(response){
+          // First, send the confirmation email then submit the form data.
+          sendConfirmationEmail().then(() => {
+            submitFormData();
+          });
+        },
+        onClose: function(){
+          alert("Payment Unsuccessful, please try again.");
+        }
+      });
+      handler.openIframe(); // Open the Paystack payment modal
+    }
+
+    // Initialize EmailJS (use one correct user ID)
+    document.addEventListener("DOMContentLoaded", function() {
+      if (window.emailjs) {
+        emailjs.init("t2x4vrzcknDlDKRhV"); // Replace with your actual EmailJS user ID.
+      } else {
+        console.error("EmailJS failed to load.");
+      }
+    });
+
+    // EmailJS: Send a confirmation email to the customer.
+    function sendConfirmationEmail() {
+      const templateParams = {
+        to_name: document.getElementById("buyerName").value,
+        to_email: document.getElementById("buyerEmail").value,
+        buyer_phone: document.getElementById("buyerPhone").value,
+        buyer_address: document.getElementById("buyerAddress").value,
+        tshirt_size: document.getElementById("tshirtSize").value,
+        product_image: document.getElementById("hiddenProductImage").value,
+        product_title: document.getElementById("hiddenProductTitle").value,
+        product_description: document.getElementById("hiddenProductDescription").value,
+        amount_paid: "80 cedis",  // Static value or calculate dynamically if needed.
+        instructions: "Thank you for your purchase! Check your email for shipping details and order tracking."
+      };
+      return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
+        .then(function(response) {
+          console.log('Confirmation email sent successfully!', response.status, response.text);
+        })
+        .catch(function(error) {
+          console.log('Failed to send confirmation email:', error);
+          // Proceed even if email sending fails
+          return Promise.resolve();
+        });
+    }
+
+    // Submit the form data to FormSubmit using a POST request.
+    function submitFormData() {
+      const form = document.getElementById("purchaseForm");
+      const formData = new FormData(form);
+      fetch(form.action, {
+        method: "POST",
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
       })
-      .then(data => {
-        console.log("FormSubmit response data:", data);
-        // Adjust check as needed depending on FormSubmit's response format
-        window.location.href = form.querySelector('input[name="_next"]').value;
+      .then(response => {
+        if (response.ok) {
+          window.location.href = form.querySelector('input[name="_next"]').value;
+        } else {
+          throw new Error('Form submission failed.');
+        }
       })
       .catch(error => {
         console.error("Form submission error:", error);
-        // Optionally, add inline feedback here too.
+        alert("There was an error processing your order. Please try again.");
       });
-  }
-</script>
-
-  
+    }
+  </script>
 </body>
 </html>
