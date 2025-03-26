@@ -296,7 +296,7 @@
     <div class="product-info-container">
       <img id="productImage" src="" alt="Selected Product">
       <h2 id="productTitle"></h2>
-      <p id="productDescription"></p>
+      
     </div>
     
     <!-- Purchase Form Section -->
@@ -307,7 +307,7 @@
         <!-- Hidden Inputs for Product Data -->
         <input type="hidden" id="hiddenProductImage" name="Product Image">
         <input type="hidden" id="hiddenProductTitle" name="Product Title">
-        <input type="hidden" id="hiddenProductDescription" name="Product Description">
+       
         <!-- Full Name -->
         <div class="form-group">
           <i class="fas fa-user"></i>
@@ -324,7 +324,7 @@
         <div class="form-group">
           <i class="fas fa-phone"></i>
           <label for="buyerPhone">Phone Number</label>
-          <input type="text" id="buyerPhone" name="Phone Number" placeholder="Enter your phone number" required>
+          <input type="text" id="buyerPhone" name="Phone Number" placeholder="Enter a valid 10 digit number" required>
         </div>
         <!-- Shipping Address -->
         <div class="form-group">
@@ -418,8 +418,8 @@
     // Validate buyerName: must contain at least two words
     const nameVal = buyerName.value.trim();
     if (!/^\S+\s+\S+/.test(nameVal)) {
-      showError(buyerName, "❌ Buyer Name must contain at least two words.");
-      errorMessages.push("Buyer Name must contain at least two words.");
+     
+      errorMessages.push("Please enter your FULL NAME");
       isValid = false;
     } else {
       clearError(buyerName);
@@ -428,8 +428,8 @@
     // Validate buyerEmail: basic email validation
     const emailVal = buyerEmail.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      showError(buyerEmail, "❌ Please enter a valid email address.");
-      errorMessages.push("Invalid email format.");
+    
+      errorMessages.push("Please enter a valid email address.");
       isValid = false;
     } else {
       clearError(buyerEmail);
@@ -438,8 +438,8 @@
     // Validate buyerPhone: exactly 10 digits
     const phoneVal = buyerPhone.value.trim();
     if (!/^\d{10}$/.test(phoneVal)) {
-      showError(buyerPhone, "❌ Phone number must be 10 digits.");
-      errorMessages.push("Phone number must be 10 digits.");
+      
+      errorMessages.push("Please enter a valid 10 digit Phone Number");
       isValid = false;
     } else {
       clearError(buyerPhone);
@@ -447,8 +447,8 @@
 
     // Validate buyerAddress: must not be empty
     if (buyerAddress.value.trim() === "") {
-      showError(buyerAddress, "❌ Buyer Address is required.");
-      errorMessages.push("Buyer Address is required.");
+      
+      errorMessages.push("Please enter your Residential Address");
       isValid = false;
     } else {
       clearError(buyerAddress);
@@ -456,8 +456,8 @@
 
     // Validate tshirtSize: must be selected
     if (!tshirtSize.value) {
-      showError(tshirtSize, "❌ T-Shirt Size is required.");
-      errorMessages.push("T-Shirt Size is required.");
+     
+      errorMessages.push("You must select your Shirt Size.");
       isValid = false;
     } else {
       clearError(tshirtSize);
@@ -465,8 +465,8 @@
 
     // Validate terms: must be accepted
     if (!terms.checked) {
-      showError(terms, "❌ You must accept the Terms & Conditions.");
-      errorMessages.push("Terms & Conditions must be accepted.");
+      
+      errorMessages.push("You must accept the Terms & Conditions.");
       isValid = false;
     } else {
       clearError(terms);
