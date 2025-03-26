@@ -18,7 +18,73 @@
       padding: 50px 20px;
       overflow: hidden;
     }
-    
+     /* ==========================
+       Navigation Bar
+    ========================== */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.9);
+      padding: 15px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff9800;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+    }
+    nav ul li a {
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: background 0.3s, color 0.3s;
+    }
+    nav ul li a:hover {
+      background: #ff9800;
+      color: #141e30;
+      border-radius: 5px;
+    }
+
+
+
+    /* ==========================
+       Footer
+    ========================== */
+    footer {
+      background: #222;
+      color: #aaa;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer p { margin-bottom: 10px; }
+    footer a {
+      color: #ff9800;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    footer a:hover { color: #e68900; }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.2); }
+
     /* Success Container */
     .success-container {
       max-width: 600px;
@@ -86,6 +152,19 @@
   </style>
 </head>
 <body>
+ <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Primal Customs</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="https://jvo-james.github.io/primal-customs/homepage.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/shop.html"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        
+      </ul>
+    </nav>
+  </header>
 
   <!-- Success Message -->
   <div class="success-container">
@@ -100,12 +179,17 @@
     </a>
   </div>
 
-  <!-- Auto Redirect to Shop After 5 Seconds -->
-  <script>
-    setTimeout(function() {
-      window.location.href = "https://jvo-james.github.io/primal-customs/shop.html";
-    }, 5000);
-  </script>
-
+ 
+ <footer>
+    <p>© 2025 Primal Customs. All Rights Reserved.</p>
+    <p>
+      <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
+      <a href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>
+    </p>
+    <div class="social-icons">
+      <a href="https://snapchat.com/t/na13t0ql"><i class="fab fa-snapchat"></i></a>
+      <a href="https://www.instagram.com/primal.customs?igsh=MmRha2hybXR0c3R4"><i class="fab fa-instagram"></i></a>
+         </div>
+  </footer>
 </body>
 </html>
