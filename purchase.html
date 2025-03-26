@@ -9,7 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
- 
+   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+
   <style>
     /* Base Styles */
     body {
@@ -50,6 +52,7 @@
     }
     nav ul li a {
       font-size: 16px;
+      color: #ff9800;
       padding: 5px 10px;
       transition: background 0.3s, color 0.3s;
     }
@@ -226,20 +229,33 @@ font-family: arial;
     }
     .social-icons a:hover { transform: scale(1.2); }
 
- #loader {
+/* Loader Overlay */
+#loader {
   display: none; /* Hidden by default */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
   z-index: 9999;
-  text-align: center;
-  color: white;
-  font-size: 24px;
-  line-height: 100vh; /* Center text vertically */
+  justify-content: center;
+  align-items: center;
 }
+/* Spinner Style */
+#loader .spinner {
+  border: 12px solid #f3f3f3;
+  border-top: 12px solid #ff9800;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
 
 
     @keyframes fadeIn {
@@ -423,7 +439,11 @@ font-family: arial;
       <a href="https://www.instagram.com/primal.customs?igsh=MmRha2hybXR0c3R4"><i class="fab fa-instagram"></i></a>
          </div>
   </footer>
-<div id="loader">Please wait...</div>
+<!-- Loader Overlay -->
+<div id="loader">
+  <div class="spinner"></div>
+</div>
+
 
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
 
@@ -587,10 +607,13 @@ font-family: arial;
         ]
       },
      callback: function(response) {
-          // Show loader when payment is complete
-          document.getElementById("loader").style.display = "block";
+          // Show loader (spinner)
+          document.getElementById("loader").style.display = "flex";
           sendConfirmationEmail().then(() => {
-            submitFormData();
+            // Wait 3 seconds then submit form (which will redirect)
+            setTimeout(function(){
+              submitFormData();
+            }, 3000);
           });
         },
         onClose: function() {
@@ -599,6 +622,7 @@ font-family: arial;
       });
       handler.openIframe();
     }
+
 
 
   // --- EmailJS Confirmation Email ---
