@@ -388,10 +388,7 @@
     // Listen for button click to initiate Paystack payment
     document.getElementById("paystack-button").addEventListener("click", function(e) {
       e.preventDefault();
-      if (!isFormValid()) {
-        alert("Please fill in all fields and agree to the Terms & Conditions.");
-        return;
-      }
+     
       payWithPaystack();
     });
 
