@@ -369,26 +369,78 @@
       }
     });
 
-  // Validate all form fields
-    function isFormValid() {
-      const buyerName = document.getElementById("buyerName").value.trim();
-      const buyerEmail = document.getElementById("buyerEmail").value.trim();
-      const buyerPhone = document.getElementById("buyerPhone").value.trim();
-      const buyerAddress = document.getElementById("buyerAddress").value.trim();
-      const tshirtSize = document.getElementById("tshirtSize").value;
-      const termsAccepted = document.getElementById("terms").checked;
+ // Validate form fields without showing error messages
+function isFormValid() {
+  // Remove "invalid" class from all fields
+  document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
 
-      if (!buyerName || !buyerEmail || !buyerPhone || !buyerAddress || !tshirtSize || !termsAccepted) {
-        return false;
-      }
-      return true;
-    }
+  // Full Name: must contain at least two words
+  const buyerName = document.getElementById("buyerName");
+  if (!/^\S+\s+\S+/.test(buyerName.value.trim())) {
+    buyerName.classList.add("invalid");
+    buyerName.focus();
+    return false;
+  }
+
+  // Email: basic validation
+  const buyerEmail = document.getElementById("buyerEmail");
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.value.trim())) {
+    buyerEmail.classList.add("invalid");
+    buyerEmail.focus();
+    return false;
+  }
+
+  // Phone: exactly 10 digits (numbers only)
+  const buyerPhone = document.getElementById("buyerPhone");
+  if (!/^\d{10}$/.test(buyerPhone.value.trim())) {
+    buyerPhone.classList.add("invalid");
+    buyerPhone.focus();
+    return false;
+  }
+
+  // Address: must not be empty
+  const buyerAddress = document.getElementById("buyerAddress");
+  if (buyerAddress.value.trim() === "") {
+    buyerAddress.classList.add("invalid");
+    buyerAddress.focus();
+    return false;
+  }
+
+  // T-Shirt Size: must be selected
+  const tshirtSize = document.getElementById("tshirtSize");
+  if (!tshirtSize.value) {
+    tshirtSize.classList.add("invalid");
+    tshirtSize.focus();
+    return false;
+  }
+
+  // Terms & Conditions: must be accepted
+  const termsAccepted = document.getElementById("terms");
+  if (!termsAccepted.checked) {
+    termsAccepted.classList.add("invalid");
+    termsAccepted.focus();
+    return false;
+  }
+
+  return true;
+}
+
+// Handle the "Proceed to Payment" button click
+document.getElementById("paystack-button").addEventListener("click", function(e) {
+  e.preventDefault();
+  if (isFormValid()) {
+    payWithPaystack();
+  }
+});
 
 
     // Listen for button click to initiate Paystack payment
     document.getElementById("paystack-button").addEventListener("click", function(e) {
       e.preventDefault();
-     
+      if (!isFormValid()) {
+        alert("Please fill in all fields and agree to the Terms & Conditions.");
+        return;
+      }
       payWithPaystack();
     });
 
