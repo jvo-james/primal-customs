@@ -588,18 +588,14 @@ font-family: arial;
   // --- EmailJS Confirmation Email ---
   function sendConfirmationEmail() {
     const templateParams = {
-      to_name: document.getElementById("buyerName").value,
-      to_email: document.getElementById("buyerEmail").value,
-      buyer_phone: document.getElementById("buyerPhone").value,
-      buyer_address: document.getElementById("buyerAddress").value,
-      tshirt_size: document.getElementById("tshirtSize").value,
-      product_image: document.getElementById("productImage").value,
-      product_title: document.getElementById("hiddenProductTitle").value,
-      garment_type: document.getElementById("hiddenGarment").value,
-      product_description: "", // No description provided
-      amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
-      instructions: "Thank you for your purchase! Check your email for order tracking."
-    };
+  to_name: document.getElementById("buyerName").value,
+  product_title: document.getElementById("hiddenProductTitle").value,
+  garment_type: document.getElementById("hiddenGarment").value,
+  amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
+  tshirt_size: document.getElementById("tshirtSize").value,
+  product_image: document.getElementById("hiddenProductImage").value,
+  instructions: "Thank you for your purchase! Check your email for order tracking."
+};
     return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
       .then(function(response) {
         console.log('Confirmation email sent successfully!', response.status, response.text);
