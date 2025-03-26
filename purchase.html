@@ -184,14 +184,6 @@
     .purchase-form-container button:hover {
       background: #e68900;
     }
-    /* Error message styling */
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-  display: block;
-}
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -378,15 +370,19 @@
     }
   });
 
-  // Function to show inline error messages and focus on the input field
+  // Function to show inline error messages and focus on the input
   function showError(inputElement, message) {
     // Remove any previous error message for this element
-    const existing = inputElement.parentNode.querySelector(".error-message");
+    let existing = inputElement.parentNode.querySelector(".error-message");
     if (existing) {
       existing.remove();
     }
-    const error = document.createElement("span");
+    let error = document.createElement("span");
     error.classList.add("error-message");
+    error.style.color = "red";
+    error.style.fontSize = "14px";
+    error.style.display = "block";
+    error.style.marginTop = "5px";
     error.innerText = message;
     inputElement.parentNode.appendChild(error);
     inputElement.focus();
@@ -398,7 +394,7 @@
     // Clear all previous error messages
     document.querySelectorAll(".error-message").forEach(el => el.remove());
 
-    // Full Name: must contain at least two words
+    // Full Name: at least two words
     const buyerName = document.getElementById("buyerName");
     const nameVal = buyerName.value.trim();
     if (!/^\S+\s+\S+/.test(nameVal)) {
@@ -406,7 +402,7 @@
       valid = false;
     }
 
-    // Email: basic validation
+    // Email: basic email validation
     const buyerEmail = document.getElementById("buyerEmail");
     const emailVal = buyerEmail.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
@@ -414,7 +410,7 @@
       valid = false;
     }
 
-    // Phone: exactly 10 digits (numbers only)
+    // Phone: exactly 10 digits (only numbers)
     const buyerPhone = document.getElementById("buyerPhone");
     const phoneVal = buyerPhone.value.trim();
     if (!/^\d{10}$/.test(phoneVal)) {
@@ -436,7 +432,7 @@
       valid = false;
     }
 
-    // Terms & Conditions: must be accepted
+    // Terms & Conditions: must be checked
     const termsAccepted = document.getElementById("terms");
     if (!termsAccepted.checked) {
       showError(termsAccepted, "You must accept the Terms & Conditions");
@@ -446,7 +442,7 @@
     return valid;
   }
 
-  // Handle the "Proceed to Payment" button click
+  // Handle Proceed to Payment button click
   document.getElementById("paystack-button").addEventListener("click", function(e) {
     e.preventDefault();
     if (isFormValid()) {
@@ -454,7 +450,7 @@
     }
   });
 
-  // Payment integration with Paystack
+  // Payment integration with Paystack remains the same.
   function payWithPaystack() {
     let handler = PaystackPop.setup({
       key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0', // Replace with your actual Paystack public key
@@ -478,10 +474,11 @@
         });
       },
       onClose: function() {
+        // Optionally, you can add inline error feedback if needed.
         console.log("Payment modal closed by user.");
       }
     });
-    handler.openIframe();
+    handler.openIframe(); // Open the Paystack payment modal
   }
 
   // EmailJS: Send a confirmation email to the customer.
@@ -495,7 +492,7 @@
       product_image: document.getElementById("hiddenProductImage").value,
       product_title: document.getElementById("hiddenProductTitle").value,
       product_description: document.getElementById("hiddenProductDescription").value,
-      amount_paid: "80 cedis",  // Static value; adjust as needed.
+      amount_paid: "80 cedis",  // Static value or calculate dynamically if needed.
       instructions: "Thank you for your purchase! Check your email for shipping details and order tracking."
     };
     return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
@@ -526,13 +523,16 @@
       })
       .then(data => {
         console.log("FormSubmit response data:", data);
+        // Adjust check as needed depending on FormSubmit's response format
         window.location.href = form.querySelector('input[name="_next"]').value;
       })
       .catch(error => {
         console.error("Form submission error:", error);
+        // Optionally, add inline feedback here too.
       });
   }
 </script>
 
+  
 </body>
 </html>
