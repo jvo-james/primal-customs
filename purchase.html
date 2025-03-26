@@ -184,16 +184,13 @@
     .purchase-form-container button:hover {
       background: #e68900;
     }
-    /* Style for inline error messages */
-.error-message {
-  color: red;
-  font-size: 10px;
-  margin-top: 5px;
+  .error {
+    border: 2px solid red;
 }
-
-/* Style for invalid fields */
-.invalid {
-  border: 2px solid red !important;
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
 }
 
     @keyframes fadeIn {
@@ -452,72 +449,109 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-// Validate form fields and show inline messages
-function isFormValid() {
-  let valid = true;
-  
-  // Clear all previous errors first
-  document.querySelectorAll(".error-message").forEach(el => el.remove());
-  document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+function validateForm() {
+    // Get references to your fields
+    const buyerName = document.getElementById("buyerName");
+    const buyerEmail = document.getElementById("buyerEmail");
+    const buyerPhone = document.getElementById("buyerPhone");
+    const buyerAddress = document.getElementById("buyerAddress");
+    const tshirtSize = document.getElementById("tshirtSize");
+    const terms = document.getElementById("terms");
 
-  // Full Name: must contain at least two words
-  const buyerName = document.getElementById("buyerName");
-  if (!/^\S+\s+\S+/.test(buyerName.value.trim())) {
-    showError(buyerName, "Enter your FULL NAME (first and last name)");
-    buyerName.focus();
-    valid = false;
-  }
+    let isValid = true;
+    let errorMessages = [];
 
-  // Email: basic validation
-  const buyerEmail = document.getElementById("buyerEmail");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.value.trim())) {
-    showError(buyerEmail, "Enter a valid email address");
-    if (valid) buyerEmail.focus();
-    valid = false;
-  }
+    // Validate buyerName: at least two words
+    const nameVal = buyerName.value.trim();
+    if (!/^\S+\s+\S+/.test(nameVal)) {
+        showError(buyerName, "❌ Buyer Name must contain at least two words.");
+        errorMessages.push("Buyer Name must contain at least two words.");
+        isValid = false;
+    } else {
+        removeError(buyerName);
+    }
 
-  // Phone: exactly 10 digits (numbers only)
-  const buyerPhone = document.getElementById("buyerPhone");
-  if (!/^\d{10}$/.test(buyerPhone.value.trim())) {
-    showError(buyerPhone, "Enter a valid 10-digit phone number");
-    if (valid) buyerPhone.focus();
-    valid = false;
-  }
+    // Validate buyerEmail: basic email pattern
+    const emailVal = buyerEmail.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        showError(buyerEmail, "❌ Please enter a valid email address.");
+        errorMessages.push("Invalid email format.");
+        isValid = false;
+    } else {
+        removeError(buyerEmail);
+    }
 
-  // Address: must not be empty
-  const buyerAddress = document.getElementById("buyerAddress");
-  if (buyerAddress.value.trim() === "") {
-    showError(buyerAddress, "Address is required");
-    if (valid) buyerAddress.focus();
-    valid = false;
-  }
+    // Validate buyerPhone: exactly 10 digits
+    const phoneVal = buyerPhone.value.trim();
+    if (!/^\d{10}$/.test(phoneVal)) {
+        showError(buyerPhone, "❌ Phone number must be 10 digits.");
+        errorMessages.push("Phone number must be 10 digits.");
+        isValid = false;
+    } else {
+        removeError(buyerPhone);
+    }
 
-  // T-Shirt Size: must be selected
-  const tshirtSize = document.getElementById("tshirtSize");
-  if (!tshirtSize.value) {
-    showError(tshirtSize, "Select a T-Shirt Size");
-    if (valid) tshirtSize.focus();
-    valid = false;
-  }
+    // Validate buyerAddress: must not be empty
+    if (buyerAddress.value.trim() === "") {
+        showError(buyerAddress, "❌ Buyer Address is required.");
+        errorMessages.push("Buyer Address is required.");
+        isValid = false;
+    } else {
+        removeError(buyerAddress);
+    }
 
-  // Terms & Conditions: must be accepted
-  const termsAccepted = document.getElementById("terms");
-  if (!termsAccepted.checked) {
-    showError(termsAccepted, "You must accept the Terms & Conditions");
-    if (valid) termsAccepted.focus();
-    valid = false;
-  }
+    // Validate tshirtSize: must be selected
+    if (!tshirtSize.value) {
+        showError(tshirtSize, "❌ T-Shirt Size is required.");
+        errorMessages.push("T-Shirt Size is required.");
+        isValid = false;
+    } else {
+        removeError(tshirtSize);
+    }
 
-  return valid;
+    // Validate terms: must be accepted
+    if (!terms.checked) {
+        showError(terms, "❌ You must accept the Terms & Conditions.");
+        errorMessages.push("Terms & Conditions must be accepted.");
+        isValid = false;
+    } else {
+        removeError(terms);
+    }
+
+    if (!isValid) {
+        alert("⚠️ Please fix the following errors before proceeding:\n\n" + errorMessages.join("\n"));
+    }
+
+    return isValid;
 }
 
-// Handle the "Proceed to Payment" button click
-document.getElementById("paystack-button").addEventListener("click", function(e) {
-  e.preventDefault();
-  if (isFormValid()) {
-    payWithPaystack();
-  }
-});
+function showError(input, message) {
+    input.classList.add("error");
+    // If an error message already exists, update it; otherwise, create one.
+    if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message")) {
+        input.nextElementSibling.textContent = message;
+    } else {
+        createErrorMessage(input, message);
+    }
+}
+
+function removeError(input) {
+    input.classList.remove("error");
+    if (input.nextElementSibling && input.nextElementSibling.classList.contains("error-message")) {
+        input.nextElementSibling.remove();
+    }
+}
+
+function createErrorMessage(input, message) {
+    const errorMsg = document.createElement("div");
+    errorMsg.classList.add("error-message");
+    errorMsg.style.color = "red";
+    errorMsg.style.fontSize = "14px";
+    errorMsg.style.marginTop = "5px";
+    errorMsg.textContent = message;
+    input.parentNode.appendChild(errorMsg);
+}
+
 
 
 
