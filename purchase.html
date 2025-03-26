@@ -92,6 +92,8 @@
     .product-info-container p {
       font-size: 16px;
       margin-bottom: 10px;
+font-family: arial;
+
     }
     /* Purchase Form Section */
     .purchase-form-container {
@@ -296,7 +298,7 @@
     <div class="product-info-container">
       <img id="productImage" src="" alt="Selected Product">
       <h2 id="productTitle"></h2>
-      
+      <p id="productPrice"></p>
     </div>
     
     <!-- Purchase Form Section -->
@@ -307,7 +309,9 @@
         <!-- Hidden Inputs for Product Data -->
         <input type="hidden" id="hiddenProductImage" name="Product Image">
         <input type="hidden" id="hiddenProductTitle" name="Product Title">
-       
+              <input type="hidden" id="hiddenProductPrice" name="Product Price">
+        <input type="hidden" id="hiddenGarment" name="Garment Type">
+        
         <!-- Full Name -->
         <div class="form-group">
           <i class="fas fa-user"></i>
@@ -358,8 +362,8 @@
   </div>
 
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
+
 <script>
-  // --- Initialization ---
   document.addEventListener("DOMContentLoaded", function() {
     // Initialize EmailJS once
     if (window.emailjs) {
@@ -368,22 +372,23 @@
       console.error("EmailJS failed to load.");
     }
 
-    // Load selected product details from localStorage
-    const selectedProductData = localStorage.getItem("selectedProduct");
-    if (selectedProductData) {
-      const product = JSON.parse(selectedProductData);
-      document.getElementById("productImage").src = product.image;
-      document.getElementById("productTitle").innerText = product.title;
-      document.getElementById("productDescription").innerText = product.description;
+    // Retrieve selected product from localStorage
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    if (selectedProduct) {
+      document.getElementById("productImage").src = selectedProduct.image;
+      document.getElementById("productTitle").innerText = selectedProduct.title;
+      document.getElementById("productPrice").innerText = "Price: GHS " + selectedProduct.price + " (" + selectedProduct.garment.toUpperCase() + ")";
       // Set hidden fields for form submission
-      document.getElementById("hiddenProductImage").value = product.image;
-      document.getElementById("hiddenProductTitle").value = product.title;
-      document.getElementById("hiddenProductDescription").value = product.description;
+      document.getElementById("hiddenProductImage").value = selectedProduct.image;
+      document.getElementById("hiddenProductTitle").value = selectedProduct.title;
+      // Removed productDescription since no element exists
+      document.getElementById("hiddenProductPrice").value = selectedProduct.price;
+      document.getElementById("hiddenGarment").value = selectedProduct.garment;
     } else {
-      console.log("No product data found.");
+      console.log("No product selected.");
     }
 
-    // Attach clear-on-focus listeners for all required fields
+    // Attach clear-on-focus listeners for required fields
     const requiredFields = [
       document.getElementById("buyerName"),
       document.getElementById("buyerEmail"),
@@ -401,10 +406,8 @@
     });
   });
 
-
   // --- Validation Functions ---
   function validateForm() {
-    // Get references to fields
     const buyerName = document.getElementById("buyerName");
     const buyerEmail = document.getElementById("buyerEmail");
     const buyerPhone = document.getElementById("buyerPhone");
@@ -418,8 +421,8 @@
     // Validate buyerName: must contain at least two words
     const nameVal = buyerName.value.trim();
     if (!/^\S+\s+\S+/.test(nameVal)) {
-     
-      errorMessages.push("Please enter your FULL NAME");
+      showError(buyerName, "Please enter your FULL NAME (first and last).");
+      errorMessages.push("Full Name is required.");
       isValid = false;
     } else {
       clearError(buyerName);
@@ -428,8 +431,8 @@
     // Validate buyerEmail: basic email validation
     const emailVal = buyerEmail.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-    
-      errorMessages.push("Please enter a valid email address.");
+      showError(buyerEmail, "Please enter a valid email address.");
+      errorMessages.push("Valid Email is required.");
       isValid = false;
     } else {
       clearError(buyerEmail);
@@ -438,8 +441,8 @@
     // Validate buyerPhone: exactly 10 digits
     const phoneVal = buyerPhone.value.trim();
     if (!/^\d{10}$/.test(phoneVal)) {
-      
-      errorMessages.push("Please enter a valid 10 digit Phone Number");
+      showError(buyerPhone, "Please enter a valid 10-digit phone number.");
+      errorMessages.push("Valid Phone Number is required.");
       isValid = false;
     } else {
       clearError(buyerPhone);
@@ -447,8 +450,8 @@
 
     // Validate buyerAddress: must not be empty
     if (buyerAddress.value.trim() === "") {
-      
-      errorMessages.push("Please enter your Residential Address");
+      showError(buyerAddress, "Please enter your residential address.");
+      errorMessages.push("Address is required.");
       isValid = false;
     } else {
       clearError(buyerAddress);
@@ -456,8 +459,8 @@
 
     // Validate tshirtSize: must be selected
     if (!tshirtSize.value) {
-     
-      errorMessages.push("You must select your Shirt Size.");
+      showError(tshirtSize, "You must select a shirt size.");
+      errorMessages.push("Shirt Size is required.");
       isValid = false;
     } else {
       clearError(tshirtSize);
@@ -465,8 +468,8 @@
 
     // Validate terms: must be accepted
     if (!terms.checked) {
-      
-      errorMessages.push("You must accept the Terms & Conditions.");
+      showError(terms, "You must accept the Terms & Conditions.");
+      errorMessages.push("Terms must be accepted.");
       isValid = false;
     } else {
       clearError(terms);
@@ -475,13 +478,13 @@
     if (!isValid) {
       alert("⚠️ Please fix the following errors before proceeding:\n\n" + errorMessages.join("\n"));
     }
+
     return isValid;
   }
 
   // --- Error Handling Helpers ---
   function showError(inputElement, message) {
     inputElement.classList.add("error");
-    // If error message exists, update it; otherwise create one.
     if (inputElement.nextElementSibling && inputElement.nextElementSibling.classList.contains("error-message")) {
       inputElement.nextElementSibling.textContent = message;
     } else {
@@ -506,12 +509,15 @@
     inputElement.parentNode.appendChild(errorMsg);
   }
 
-  // --- Payment and Submission ---
+  // --- Payment Integration with Dynamic Pricing ---
   function payWithPaystack() {
+    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+    const amountInPesewas = selectedProduct ? selectedProduct.price * 100 : 0; // convert cedis to pesewas
+
     let handler = PaystackPop.setup({
-      key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0', // Replace with your actual Paystack public key
+      key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0',
       email: document.getElementById("buyerEmail").value,
-      amount: 1, // 80 cedis in pesewas (smallest currency unit)
+      amount: amountInPesewas,
       currency: "GHS",
       ref: '' + Math.floor((Math.random() * 1000000000) + 1),
       metadata: {
@@ -524,7 +530,6 @@
         ]
       },
       callback: function(response) {
-        // First send confirmation email, then submit form data.
         sendConfirmationEmail().then(() => {
           submitFormData();
         });
@@ -546,9 +551,10 @@
       tshirt_size: document.getElementById("tshirtSize").value,
       product_image: document.getElementById("hiddenProductImage").value,
       product_title: document.getElementById("hiddenProductTitle").value,
-      product_description: document.getElementById("hiddenProductDescription").value,
-      amount_paid: "80 cedis", // Static value; adjust if needed.
-      instructions: "Thank you for your purchase! Check your email for shipping details and order tracking."
+      // If there's no description element, you can omit it or use an empty string:
+      product_description: "", 
+      amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
+      instructions: "Thank you for your purchase! Check your email for order tracking."
     };
     return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
       .then(function(response) {
