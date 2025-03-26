@@ -381,7 +381,6 @@ font-family: arial;
       // Set hidden fields for form submission
       document.getElementById("hiddenProductImage").value = selectedProduct.image;
       document.getElementById("hiddenProductTitle").value = selectedProduct.title;
-      // Removed productDescription since no element exists
       document.getElementById("hiddenProductPrice").value = selectedProduct.price;
       document.getElementById("hiddenGarment").value = selectedProduct.garment;
     } else {
@@ -418,7 +417,6 @@ font-family: arial;
     let isValid = true;
     let errorMessages = [];
 
-    // Validate buyerName: must contain at least two words
     const nameVal = buyerName.value.trim();
     if (!/^\S+\s+\S+/.test(nameVal)) {
       showError(buyerName, "Please enter your FULL NAME (first and last).");
@@ -428,7 +426,6 @@ font-family: arial;
       clearError(buyerName);
     }
 
-    // Validate buyerEmail: basic email validation
     const emailVal = buyerEmail.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
       showError(buyerEmail, "Please enter a valid email address.");
@@ -438,7 +435,6 @@ font-family: arial;
       clearError(buyerEmail);
     }
 
-    // Validate buyerPhone: exactly 10 digits
     const phoneVal = buyerPhone.value.trim();
     if (!/^\d{10}$/.test(phoneVal)) {
       showError(buyerPhone, "Please enter a valid 10-digit phone number.");
@@ -448,7 +444,6 @@ font-family: arial;
       clearError(buyerPhone);
     }
 
-    // Validate buyerAddress: must not be empty
     if (buyerAddress.value.trim() === "") {
       showError(buyerAddress, "Please enter your residential address.");
       errorMessages.push("Address is required.");
@@ -457,7 +452,6 @@ font-family: arial;
       clearError(buyerAddress);
     }
 
-    // Validate tshirtSize: must be selected
     if (!tshirtSize.value) {
       showError(tshirtSize, "You must select a shirt size.");
       errorMessages.push("Shirt Size is required.");
@@ -466,7 +460,6 @@ font-family: arial;
       clearError(tshirtSize);
     }
 
-    // Validate terms: must be accepted
     if (!terms.checked) {
       showError(terms, "You must accept the Terms & Conditions.");
       errorMessages.push("Terms must be accepted.");
@@ -551,8 +544,7 @@ font-family: arial;
       tshirt_size: document.getElementById("tshirtSize").value,
       product_image: document.getElementById("hiddenProductImage").value,
       product_title: document.getElementById("hiddenProductTitle").value,
-      // If there's no description element, you can omit it or use an empty string:
-      product_description: "", 
+      product_description: "", // No description provided
       amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
       instructions: "Thank you for your purchase! Check your email for order tracking."
     };
@@ -570,12 +562,10 @@ font-family: arial;
   function submitFormData() {
     const form = document.getElementById("purchaseForm");
     const formData = new FormData(form);
+    // Remove custom headers to let FormSubmit handle it
     fetch(form.action, {
       method: "POST",
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
+      body: formData
     })
       .then(response => {
         if (response.ok) {
@@ -598,6 +588,7 @@ font-family: arial;
     }
   });
 </script>
+
 
 </body>
 </html>
