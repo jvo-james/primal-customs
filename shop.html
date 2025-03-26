@@ -47,7 +47,7 @@
     .nav-links a, .nav-links button {
       text-decoration: none;
       color: white;
-      font-size: 22px;
+      font-size: 16px;
       background: none;
       border: none;
       cursor: pointer;
@@ -270,53 +270,35 @@ font-family: times;
       background: #ff1a3c;
     }
     
-    /* 🌟 Footer */
-    .footer {
+ 
+
+ /* ==========================
+       Footer
+    ========================== */
+    footer {
       background: #222;
-      color: white;
+      color: #aaa;
+      padding: 30px 20px;
       text-align: center;
-      padding: 15px 0;
-      font-size: 16px;
-      position: relative;
-      width: 100%;
     }
-    .contact-socials {
-    text-align: center;
-    
-    background: #222;
-    color: white;
-}
-
-.contact-socials h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.social-icons a {
-    display: inline-block;
-    margin: 0 10px;
-    color: white;
-    font-size: 24px;
-    transition: 0.3s;
-}
-
-.social-icons a:hover {
-    transform: scale(1.2);
-}
-
-
-
-
-.footer a {
-    color: #ff9800; 
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease-in-out;
-}
-
-.footer a:hover {
-    color: #e68900; 
-}
+    footer p { margin-bottom: 10px; }
+    footer a {
+      color: #ff9800;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    footer a:hover { color: #e68900; }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.2); }
 
     @media (max-width: 768px) {
   
@@ -544,22 +526,16 @@ font-family: times;
   </div>
   
   <!-- Footer -->
-  <footer class="footer">
-      <p>&copy; 2025 Primal Customs. All Rights Reserved.</p>
-     <p>
-        <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
-        <a href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>  
-       
+ <footer>
+    <p>© 2025 Primal Customs. All Rights Reserved.</p>
+    <p>
+      <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
+      <a href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>
     </p>
-      <div class="contact-socials">
-        <h2>🌍 Connect with Us</h2>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-        </div>
+    <div class="social-icons">
+      <a href="https://snapchat.com/t/na13t0ql"><i class="fab fa-snapchat"></i></a>
+      <a href="https://www.instagram.com/primal.customs?igsh=MmRha2hybXR0c3R4"><i class="fab fa-instagram"></i></a>
+    
     </div>
   </footer>
 
