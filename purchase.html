@@ -22,41 +22,47 @@
       color: #fff;
       overflow-x: hidden;
     }
-    /* Navigation Bar */
-    nav {
+  
+
+ /* ==========================
+       Navigation Bar
+    ========================== */
+    header {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      padding: 15px 30px;
+      background: rgba(0,0,0,0.9);
+      padding: 15px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
-    nav .logo {
-      font-size: 24px;
+    .logo {
+      font-size: 28px;
       font-weight: bold;
       color: #ff9800;
+      letter-spacing: 1px;
     }
-    nav .nav-links {
+    nav ul {
       list-style: none;
       display: flex;
-      margin: 0;
-      padding: 0;
+      gap: 20px;
     }
-    nav .nav-links li {
-      margin: 0 15px;
+    nav ul li a {
+      font-size: 16px;
+      padding: 5px 10px;
+      transition: background 0.3s, color 0.3s;
     }
-    nav .nav-links a {
-      text-decoration: none;
-      color: #fff;
-      font-size: 18px;
-      transition: 0.3s;
+    nav ul li a:hover {
+      background: #ff9800;
+      color: #141e30;
+      border-radius: 5px;
     }
-    nav .nav-links a:hover {
-      color: #ff9800;
-    }
+
+
+    
     /* Main Container */
     .container {
       max-width: 1000px;
@@ -194,6 +200,49 @@ font-family: arial;
     font-size: 14px;
     margin-top: 5px;
 }
+  /* ==========================
+       Footer
+    ========================== */
+    footer {
+      background: #222;
+      color: #aaa;
+      padding: 30px 20px;
+      text-align: center;
+    }
+    footer p { margin-bottom: 10px; }
+    footer a {
+      color: #ff9800;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: color 0.3s;
+    }
+    footer a:hover { color: #e68900; }
+    .social-icons {
+      margin-top: 10px;
+    }
+    .social-icons a {
+      color: #fff;
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .social-icons a:hover { transform: scale(1.2); }
+
+ #loader {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  line-height: 100vh; /* Center text vertically */
+}
+
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -281,16 +330,20 @@ font-family: arial;
   </style>
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav>
-    <div class="navbar">
-      <div class="logo">Primal Customs</div>
+ <!-- Navigation Bar -->
+  <header>
+    <div class="logo">Primal Customs</div>
+    <nav>
       <ul class="nav-links">
-        <li><a href="https://jvo-james.github.io/primal-customs/homepage.html">Home</a></li>
-        <li><a href="https://jvo-james.github.io/primal-customs/shop.html">Shop</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/homepage.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/shop.html"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
+        <li><a href="https://jvo-james.github.io/primal-customs/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        
       </ul>
-    </div>
-  </nav>
+    </nav>
+  </header>
+
   
   <!-- Main Container -->
   <div class="container">
@@ -360,6 +413,19 @@ font-family: arial;
       </form>
     </div>
   </div>
+
+   <footer>
+    <p>© 2025 Primal Customs. All Rights Reserved.</p>
+    <p>
+      <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
+      <a href="https://jvo-james.github.io/primal-customs/terms.html">Terms of Use</a>
+    </p>
+    <div class="social-icons">
+      <a href="https://snapchat.com/t/na13t0ql"><i class="fab fa-snapchat"></i></a>
+      <a href="https://www.instagram.com/primal.customs?igsh=MmRha2hybXR0c3R4"><i class="fab fa-instagram"></i></a>
+         </div>
+  </footer>
+<div id="loader">Please wait...</div>
 
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
 
@@ -522,17 +588,20 @@ font-family: arial;
           }
         ]
       },
-      callback: function(response) {
-        sendConfirmationEmail().then(() => {
-          submitFormData();
-        });
-      },
-      onClose: function() {
-        alert("Payment Unsuccessful, please try again.");
-      }
-    });
-    handler.openIframe();
-  }
+     callback: function(response) {
+          // Show loader when payment is complete
+          document.getElementById("loader").style.display = "block";
+          sendConfirmationEmail().then(() => {
+            submitFormData();
+          });
+        },
+        onClose: function() {
+          alert("Payment Unsuccessful, please try again.");
+        }
+      });
+      handler.openIframe();
+    }
+
 
   // --- EmailJS Confirmation Email ---
   function sendConfirmationEmail() {
