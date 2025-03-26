@@ -9,9 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
   <!-- Paystack Inline Script -->
   <script src="https://js.paystack.co/v1/inline.js"></script>
+  <!-- EmailJS Library -->
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-
+  
   <style>
     /* Base Styles */
     body {
@@ -22,10 +22,7 @@
       color: #fff;
       overflow-x: hidden;
     }
-
- /* ==========================
-       Navigation Bar
-    ========================== */
+    /* Navigation Bar */
     header {
       position: fixed;
       top: 0;
@@ -52,20 +49,15 @@
     nav ul li a {
       font-size: 16px;
       padding: 5px 10px;
-      transition: background 0.3s, color 0.3s;
-       text-decoration: none;
+      text-decoration: none;
       color: #fff;
+      transition: background 0.3s, color 0.3s;
     }
     nav ul li a:hover {
       background: #ff9800;
       color: #141e30;
       border-radius: 5px;
     }
-
-
-
-    
-   
     /* Main Container */
     .container {
       max-width: 1000px;
@@ -80,7 +72,7 @@
     /* Product Info Section */
     .product-info-container {
       flex: 1 1 400px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
       padding: 20px;
       border-radius: 10px;
       backdrop-filter: blur(10px);
@@ -101,13 +93,12 @@
     .product-info-container p {
       font-size: 16px;
       margin-bottom: 10px;
-font-family: arial;
-
+      font-family: Arial, sans-serif;
     }
     /* Purchase Form Section */
     .purchase-form-container {
       flex: 1 1 400px;
-      background: rgba(255, 255, 255, 0.1);
+      background: rgba(255,255,255,0.1);
       padding: 20px;
       border-radius: 10px;
       backdrop-filter: blur(10px);
@@ -128,7 +119,7 @@ font-family: arial;
       margin-bottom: 5px;
       font-weight: 600;
     }
-    /* --- Custom Input Field Styling & Animations --- */
+    /* Custom Input Field Styling */
     .form-group input,
     .form-group textarea,
     .form-group select {
@@ -138,7 +129,7 @@ font-family: arial;
       border-radius: 5px;
       font-size: 16px;
       background: #f2f2f2;
-      transition: border 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+      transition: border 0.3s ease, box-shadow 0.3s ease;
       outline: none;
     }
     @keyframes pulseOnce {
@@ -150,7 +141,7 @@ font-family: arial;
     .form-group textarea:focus,
     .form-group select:focus {
       border-color: #ff9800;
-      box-shadow: 0 0 15px rgba(255, 152, 0, 0.7);
+      box-shadow: 0 0 15px rgba(255,152,0,0.7);
       animation: pulseOnce 0.5s ease-in-out;
     }
     .form-group input:hover,
@@ -195,31 +186,33 @@ font-family: arial;
     .purchase-form-container button:hover {
       background: #e68900;
     }
-  .error {
-    border: 2px solid red;
-}
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-}
- /* ==========================
-       Footer
-    ========================== */
+    .error {
+      border: 2px solid red;
+    }
+    .error-message {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+    /* Footer */
     footer {
       background: #222;
       color: #aaa;
       padding: 30px 20px;
       text-align: center;
     }
-    footer p { margin-bottom: 10px; }
+    footer p {
+      margin-bottom: 10px;
+    }
     footer a {
       color: #ff9800;
       text-decoration: none;
       margin: 0 10px;
       transition: color 0.3s;
     }
-    footer a:hover { color: #e68900; }
+    footer a:hover {
+      color: #e68900;
+    }
     .social-icons {
       margin-top: 10px;
     }
@@ -229,13 +222,15 @@ font-family: arial;
       font-size: 1.5rem;
       transition: transform 0.3s;
     }
-    .social-icons a:hover { transform: scale(1.2); }
-
-
+    .social-icons a:hover {
+      transform: scale(1.2);
+    }
+    /* Animations */
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    /* Responsive */
     @media (max-width: 768px) {
       body {
         font-size: 14px;
@@ -243,10 +238,17 @@ font-family: arial;
         width: 100%;
         overflow-x: hidden;
       }
-     
-    .logo { font-size: 16px; }
-      nav ul { flex-wrap: wrap; gap: 4px; justify-content: center; }
-      nav ul li a { font-size: 14px; } 
+      .logo {
+        font-size: 16px;
+      }
+      nav ul {
+        flex-wrap: wrap;
+        gap: 4px;
+        justify-content: center;
+      }
+      nav ul li a {
+        font-size: 14px;
+      }
       .container {
         width: 95%;
         max-width: 100%;
@@ -311,21 +313,17 @@ font-family: arial;
   </style>
 </head>
 <body>
- <!-- Navigation Bar -->
+  <!-- Navigation Bar -->
   <header>
     <div class="logo">Primal Customs</div>
     <nav>
       <ul class="nav-links">
         <li><a href="https://jvo-james.github.io/primal-customs/homepage.html"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="https://jvo-james.github.io/primal-customs/shop.html"><i class="fas fa-store"></i> Shop</a></li>
-        <li><a href="https://jvo-james.github.io/primal-customs/about.html" class="active"><i class="fas fa-info-circle"></i> About</a></li>
-        <li><a href="https://jvo-james.github.io/primal-customs/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-        
       </ul>
     </nav>
   </header>
 
-  
   <!-- Main Container -->
   <div class="container">
     <!-- Product Info Section -->
@@ -338,13 +336,13 @@ font-family: arial;
     <!-- Purchase Form Section -->
     <div class="purchase-form-container">
       <h3>Complete Your Purchase</h3>
-  <form id="purchaseForm" action="https://formsubmit.co/https://formsubmit.co/afrifahkwamesept@gmail.com" method="POST">
-     <input type="hidden" name="_next" value="https://jvo-james.github.io/primal-customs/payment-success.html">
+      <form id="purchaseForm" action="https://formsubmit.co/2d66169f296d9c51f500801f1e2aed07" method="POST">
+        <input type="hidden" name="_next" value="https://jvo-james.github.io/primal-customs/payment-success.html">
         <!-- Hidden Inputs for Product Data -->
-    <input type="hidden" name="_subject" value="New Order from Primal Customs">
+        <input type="hidden" name="_subject" value="New Order from Primal Customs">
         <input type="hidden" id="hiddenProductImage" name="Product Image">
         <input type="hidden" id="hiddenProductTitle" name="Product Title">
-              <input type="hidden" id="hiddenProductPrice" name="Product Price">
+        <input type="hidden" id="hiddenProductPrice" name="Product Price">
         <input type="hidden" id="hiddenGarment" name="Garment Type">
         
         <!-- Full Name -->
@@ -395,7 +393,8 @@ font-family: arial;
       </form>
     </div>
   </div>
- <footer>
+  
+  <footer>
     <p>© 2025 Primal Customs. All Rights Reserved.</p>
     <p>
       <a href="https://jvo-james.github.io/primal-customs/privacy.html">Privacy Policy</a> | 
@@ -404,217 +403,213 @@ font-family: arial;
     <div class="social-icons">
       <a href="https://snapchat.com/t/na13t0ql"><i class="fab fa-snapchat"></i></a>
       <a href="https://www.instagram.com/primal.customs?igsh=MmRha2hybXR0c3R4"><i class="fab fa-instagram"></i></a>
-         </div>
+    </div>
   </footer>
+
   <!-- JavaScript: Load Product Details, Validate Form, and Handle Payment -->
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    // Initialize EmailJS once
-    if (window.emailjs) {
-      emailjs.init("t2x4vrzcknDlDKRhV");
-    } else {
-      console.error("EmailJS failed to load.");
-    }
-
-    // Retrieve selected product from localStorage
-    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-    if (selectedProduct) {
-      document.getElementById("productImage").src = selectedProduct.image;
-      document.getElementById("productTitle").innerText = selectedProduct.title;
-      document.getElementById("productPrice").innerText = "Price: GHS " + selectedProduct.price + " (" + selectedProduct.garment.toUpperCase() + ")";
-      // Set hidden fields for form submission
-      document.getElementById("hiddenProductImage").value = selectedProduct.image;
-      document.getElementById("hiddenProductTitle").value = selectedProduct.title;
-      document.getElementById("hiddenProductPrice").value = selectedProduct.price;
-      document.getElementById("hiddenGarment").value = selectedProduct.garment;
-    } else {
-      console.log("No product selected.");
-    }
-
-    // Attach clear-on-focus listeners for required fields
-    const requiredFields = [
-      document.getElementById("buyerName"),
-      document.getElementById("buyerEmail"),
-      document.getElementById("buyerPhone"),
-      document.getElementById("buyerAddress"),
-      document.getElementById("tshirtSize"),
-      document.getElementById("terms")
-    ];
-    requiredFields.forEach(field => {
-      if (field) {
-        field.addEventListener("focus", function () {
-          clearError(field);
-        });
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Initialize EmailJS once
+      if (window.emailjs) {
+        emailjs.init("t2x4vrzcknDlDKRhV");
+      } else {
+        console.error("EmailJS failed to load.");
       }
-    });
-  });
-
-  // --- Validation Functions ---
-  function validateForm() {
-    const buyerName = document.getElementById("buyerName");
-    const buyerEmail = document.getElementById("buyerEmail");
-    const buyerPhone = document.getElementById("buyerPhone");
-    const buyerAddress = document.getElementById("buyerAddress");
-    const tshirtSize = document.getElementById("tshirtSize");
-    const terms = document.getElementById("terms");
-
-    let isValid = true;
-    let errorMessages = [];
-
-    const nameVal = buyerName.value.trim();
-    if (!/^\S+\s+\S+/.test(nameVal)) {
-      showError(buyerName, "Please enter your FULL NAME (first and last).");
-      errorMessages.push("Full Name is required.");
-      isValid = false;
-    } else {
-      clearError(buyerName);
-    }
-
-    const emailVal = buyerEmail.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-      showError(buyerEmail, "Please enter a valid email address.");
-      errorMessages.push("Valid Email is required.");
-      isValid = false;
-    } else {
-      clearError(buyerEmail);
-    }
-
-    const phoneVal = buyerPhone.value.trim();
-    if (!/^\d{10}$/.test(phoneVal)) {
-      showError(buyerPhone, "Please enter a valid 10-digit phone number.");
-      errorMessages.push("Valid Phone Number is required.");
-      isValid = false;
-    } else {
-      clearError(buyerPhone);
-    }
-
-    if (buyerAddress.value.trim() === "") {
-      showError(buyerAddress, "Please enter your residential address.");
-      errorMessages.push("Address is required.");
-      isValid = false;
-    } else {
-      clearError(buyerAddress);
-    }
-
-    if (!tshirtSize.value) {
-      showError(tshirtSize, "You must select a shirt size.");
-      errorMessages.push("Shirt Size is required.");
-      isValid = false;
-    } else {
-      clearError(tshirtSize);
-    }
-
-    if (!terms.checked) {
-      showError(terms, "You must accept the Terms & Conditions.");
-      errorMessages.push("Terms must be accepted.");
-      isValid = false;
-    } else {
-      clearError(terms);
-    }
-
-    if (!isValid) {
-      alert("⚠️ Please fix the following errors before proceeding:\n\n" + errorMessages.join("\n"));
-    }
-
-    return isValid;
-  }
-
-  // --- Error Handling Helpers ---
-  function showError(inputElement, message) {
-    inputElement.classList.add("error");
-    if (inputElement.nextElementSibling && inputElement.nextElementSibling.classList.contains("error-message")) {
-      inputElement.nextElementSibling.textContent = message;
-    } else {
-      createErrorMessage(inputElement, message);
-    }
-  }
-
-  function clearError(inputElement) {
-    inputElement.classList.remove("error");
-    if (inputElement.nextElementSibling && inputElement.nextElementSibling.classList.contains("error-message")) {
-      inputElement.nextElementSibling.remove();
-    }
-  }
-
-  function createErrorMessage(inputElement, message) {
-    const errorMsg = document.createElement("div");
-    errorMsg.classList.add("error-message");
-    errorMsg.style.color = "red";
-    errorMsg.style.fontSize = "14px";
-    errorMsg.style.marginTop = "5px";
-    errorMsg.textContent = message;
-    inputElement.parentNode.appendChild(errorMsg);
-  }
-
-  // --- Payment Integration with Dynamic Pricing ---
-  function payWithPaystack() {
-    const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
-    const amountInPesewas = selectedProduct ? selectedProduct.price * 100 : 0; // convert cedis to pesewas
-
-    let handler = PaystackPop.setup({
-      key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0',
-      email: document.getElementById("buyerEmail").value,
-      amount: amountInPesewas,
-      currency: "GHS",
-      ref: '' + Math.floor((Math.random() * 1000000000) + 1),
-      metadata: {
-        custom_fields: [
-          {
-            display_name: "Buyer Name",
-            variable_name: "buyer_name",
-            value: document.getElementById("buyerName").value
-          }
-        ]
-      },
-      callback: function(response) {
-        sendConfirmationEmail().then(() => {
-          submitFormData();
-        });
-      },
-      onClose: function() {
-        alert("Payment Unsuccessful, please try again.");
+      // Retrieve selected product from localStorage
+      const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+      if (selectedProduct) {
+        // Ensure the image URL is absolute (modify as needed)
+        document.getElementById("productImage").src = selectedProduct.image;
+        document.getElementById("productTitle").innerText = selectedProduct.title;
+        document.getElementById("productPrice").innerText = "Price: GHS " + selectedProduct.price + " (" + selectedProduct.garment.toUpperCase() + ")";
+        // Set hidden fields for form submission
+        document.getElementById("hiddenProductImage").value = selectedProduct.image;
+        document.getElementById("hiddenProductTitle").value = selectedProduct.title;
+        document.getElementById("hiddenProductPrice").value = selectedProduct.price;
+        document.getElementById("hiddenGarment").value = selectedProduct.garment;
+      } else {
+        console.log("No product selected.");
       }
-    });
-    handler.openIframe();
-  }
-
-   // --- EmailJS Confirmation Email ---
-  function sendConfirmationEmail() {
-    const templateParams = {
-      to_name: document.getElementById("buyerName").value,
-      to_email: document.getElementById("buyerEmail").value,
-      buyer_phone: document.getElementById("buyerPhone").value,
-      buyer_address: document.getElementById("buyerAddress").value,
-      tshirt_size: document.getElementById("tshirtSize").value,
-      product_image: document.getElementById("productImage").src,
-      product_title: document.getElementById("hiddenProductTitle").value,
-      garment_type: document.getElementById("hiddenGarment").value,
-      product_description: "", // No description provided
-      amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
-      instructions: "Thank you for your purchase! Check your email for order tracking."
-    };
-    return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
-      .then(function(response) {
-        console.log('Confirmation email sent successfully!', response.status, response.text);
-      })
-      .catch(function(error) {
-        console.log('Failed to send confirmation email:', error);
-        return Promise.resolve();
+      // Attach clear-on-focus listeners for required fields
+      const requiredFields = [
+        document.getElementById("buyerName"),
+        document.getElementById("buyerEmail"),
+        document.getElementById("buyerPhone"),
+        document.getElementById("buyerAddress"),
+        document.getElementById("tshirtSize"),
+        document.getElementById("terms")
+      ];
+      requiredFields.forEach(field => {
+        if (field) {
+          field.addEventListener("focus", function () {
+            clearError(field);
+          });
+        }
       });
-  }
+    });
 
+    // --- Validation Functions ---
+    function validateForm() {
+      const buyerName = document.getElementById("buyerName");
+      const buyerEmail = document.getElementById("buyerEmail");
+      const buyerPhone = document.getElementById("buyerPhone");
+      const buyerAddress = document.getElementById("buyerAddress");
+      const tshirtSize = document.getElementById("tshirtSize");
+      const terms = document.getElementById("terms");
 
-  // Submit the form data to FormSubmit using a POST request.
+      let isValid = true;
+      let errorMessages = [];
+
+      const nameVal = buyerName.value.trim();
+      if (!/^\S+\s+\S+/.test(nameVal)) {
+        showError(buyerName, "Please enter your FULL NAME (first and last).");
+        errorMessages.push("Full Name is required.");
+        isValid = false;
+      } else {
+        clearError(buyerName);
+      }
+
+      const emailVal = buyerEmail.value.trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+        showError(buyerEmail, "Please enter a valid email address.");
+        errorMessages.push("Valid Email is required.");
+        isValid = false;
+      } else {
+        clearError(buyerEmail);
+      }
+
+      const phoneVal = buyerPhone.value.trim();
+      if (!/^\d{10}$/.test(phoneVal)) {
+        showError(buyerPhone, "Please enter a valid 10-digit phone number.");
+        errorMessages.push("Valid Phone Number is required.");
+        isValid = false;
+      } else {
+        clearError(buyerPhone);
+      }
+
+      if (buyerAddress.value.trim() === "") {
+        showError(buyerAddress, "Please enter your residential address.");
+        errorMessages.push("Address is required.");
+        isValid = false;
+      } else {
+        clearError(buyerAddress);
+      }
+
+      if (!tshirtSize.value) {
+        showError(tshirtSize, "You must select a shirt size.");
+        errorMessages.push("Shirt Size is required.");
+        isValid = false;
+      } else {
+        clearError(tshirtSize);
+      }
+
+      if (!terms.checked) {
+        showError(terms, "You must accept the Terms & Conditions.");
+        errorMessages.push("Terms must be accepted.");
+        isValid = false;
+      } else {
+        clearError(terms);
+      }
+
+      if (!isValid) {
+        alert("⚠️ Please fix the following errors before proceeding:\n\n" + errorMessages.join("\n"));
+      }
+
+      return isValid;
+    }
+
+    // --- Error Handling Helpers ---
+    function showError(inputElement, message) {
+      inputElement.classList.add("error");
+      if (inputElement.nextElementSibling && inputElement.nextElementSibling.classList.contains("error-message")) {
+        inputElement.nextElementSibling.textContent = message;
+      } else {
+        createErrorMessage(inputElement, message);
+      }
+    }
+
+    function clearError(inputElement) {
+      inputElement.classList.remove("error");
+      if (inputElement.nextElementSibling && inputElement.nextElementSibling.classList.contains("error-message")) {
+        inputElement.nextElementSibling.remove();
+      }
+    }
+
+    function createErrorMessage(inputElement, message) {
+      const errorMsg = document.createElement("div");
+      errorMsg.classList.add("error-message");
+      errorMsg.style.color = "red";
+      errorMsg.style.fontSize = "14px";
+      errorMsg.style.marginTop = "5px";
+      errorMsg.textContent = message;
+      inputElement.parentNode.appendChild(errorMsg);
+    }
+
+    // --- Payment Integration with Dynamic Pricing ---
+    function payWithPaystack() {
+      const selectedProduct = JSON.parse(localStorage.getItem("selectedProduct"));
+      const amountInPesewas = selectedProduct ? selectedProduct.price * 100 : 0; // convert cedis to pesewas
+
+      let handler = PaystackPop.setup({
+        key: 'pk_test_2ade17e9d9396df3509aef0a3051a6e92fc587b0',
+        email: document.getElementById("buyerEmail").value,
+        amount: amountInPesewas,
+        currency: "GHS",
+        ref: '' + Math.floor((Math.random() * 1000000000) + 1),
+        metadata: {
+          custom_fields: [
+            {
+              display_name: "Buyer Name",
+              variable_name: "buyer_name",
+              value: document.getElementById("buyerName").value
+            }
+          ]
+        },
+        callback: function(response) {
+          sendConfirmationEmail().then(() => {
+            submitFormData();
+          });
+        },
+        onClose: function() {
+          alert("Payment Unsuccessful, please try again.");
+        }
+      });
+      handler.openIframe();
+    }
+
+    // --- EmailJS Confirmation Email ---
+    function sendConfirmationEmail() {
+      const templateParams = {
+        to_name: document.getElementById("buyerName").value,
+        to_email: document.getElementById("buyerEmail").value,
+        buyer_phone: document.getElementById("buyerPhone").value,
+        buyer_address: document.getElementById("buyerAddress").value,
+        tshirt_size: document.getElementById("tshirtSize").value,
+        product_image: document.getElementById("hiddenProductImage").value, // Using hidden field value (absolute URL)
+        product_title: document.getElementById("hiddenProductTitle").value,
+        garment_type: document.getElementById("hiddenGarment").value,
+        product_description: "", // No description provided
+        amount_paid: document.getElementById("hiddenProductPrice").value + " cedis",
+        instructions: "Thank you for your purchase! Check your email for order tracking."
+      };
+      return emailjs.send('service_te55ofm', 'template_r7ufhsh', templateParams)
+        .then(function(response) {
+          console.log('Confirmation email sent successfully!', response.status, response.text);
+        })
+        .catch(function(error) {
+          console.log('Failed to send confirmation email:', error);
+          return Promise.resolve();
+        });
+    }
+
+    // --- Form Submission via FormSubmit ---
     function submitFormData() {
       const form = document.getElementById("purchaseForm");
       const formData = new FormData(form);
       fetch(form.action, {
         method: "POST",
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
+        body: formData
+        // No custom headers
       })
       .then(response => {
         if (response.ok) {
@@ -629,17 +624,13 @@ font-family: arial;
       });
     }
 
-
-
-  // --- Button Listener ---
-  document.getElementById("paystack-button").addEventListener("click", function(e) {
-    e.preventDefault();
-    if (validateForm()) { // validateForm() returns true if valid
-      payWithPaystack();
-    }
-  });
-</script>
-
-
+    // --- Button Listener ---
+    document.getElementById("paystack-button").addEventListener("click", function(e) {
+      e.preventDefault();
+      if (validateForm()) {
+        payWithPaystack();
+      }
+    });
+  </script>
 </body>
 </html>
