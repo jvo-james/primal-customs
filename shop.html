@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Shop - Primal Customs</title>
+  <!-- Font Awesome and Google Fonts -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-  <style>
+   <style>
     /* 🌟 General Styling */
     body {
       font-family: 'Raleway', sans-serif;
@@ -146,7 +147,9 @@
       padding: 20px;
       text-align: center;
       width: 100%;
-      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+color: black;
+font-family: times;
+     
     }
     .modal img {
       width: 100%;
@@ -165,7 +168,6 @@
 /* ✅ Black thin border for the first and third images in Modal */
 .modal-content img:nth-of-type(1),
 .modal-content img:nth-of-type(3) {
-    border: 1px solid #000; /* Thin black border */
     border-radius: 0; /* No rounded edges */
     padding: 0; /* Remove padding */
 }
@@ -495,73 +497,44 @@
         <li><a href="https://jvo-james.github.io/primal-customs/homepage.html"><i class="fas fa-home"></i> Home</a></li>
         <li><a href="https://jvo-james.github.io/primal-customs/about.html"><i class="fas fa-info-circle"></i> About</a></li>
         <li><a href="https://jvo-james.github.io/primal-customs/contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
-          <button id="cartIcon"><i class="fas fa-shopping-cart"></i> Cart</button>
+        <button id="cartIcon"><i class="fas fa-shopping-cart"></i> Cart</button>
       </ul>
   </nav>
   
-  <!-- Hero Section -->
+  <!-- Shop Header -->
   <header class="shop-header">
       <h1>🔥 Explore Our Latest Designs</h1>
       <p>New designs every month. Click on a design to view details.</p>
   </header>
   
-  <!-- Product Showcase -->
-  <section class="products">
-      <div class="product">
-          <img src="design1.jpg" alt="Abstract Flames" onclick="openProductModal('design1.jpg', 'Primal Legacy', 'A timeless blend of history and modern design. ')">
-              <h2>Primal Legacy</h2>
-              <p>📜 A timeless blend of history and modern design.<br><b style="color: #243b55; font-family: cambria;"> Price: GHS 80</b></p>
-              <button class="add-to-cart" data-name="Abstract Flames" onclick="addToCart(event, 'design1.jpg', 'Primal Legacy')">
-                  <i class="fas fa-cart-plus"></i> Add to Cart
-              </button>
-          </div>
-      </div>
-      <div class="product">
-          <img src="design2.jpg" alt="Urban Graffiti" onclick="openProductModal('design2.jpg', 'Primal Legacy (Black)', 'A fusion of history and modern minimalism. ')">
-          <div class="product-info">
-              <h2>Primal Legacy (Black)</h2>
-              <p>🏛️ A fusion of history and modern minimalism. <br><b style="color: #243b55; font-family: cambria;"> Price: GHS 80</b></p>
-              <button class="add-to-cart" data-name="Urban Graffiti" onclick="addToCart(event, 'design2.jpg', 'Primal Legacy (Black)')">
-                  <i class="fas fa-cart-plus"></i> Add to Cart
-              </button>
-          </div>
-      </div>
-      <div class="product">
-          <img src="design3.jpg" alt="Falling Titan" onclick="openProductModal('design3.jpg', 'Falling Titan', 'A bold statement of power and movement. ')">
-          <div class="product-info">
-              <h2>Falling Titan</h2>
-              <p>🔥 A bold statement of power and movement. <br><b style="color: #243b55; font-family: cambria;"> Price: GHS 80</b></p>
-              <button class="add-to-cart" data-name="Space Vortex" onclick="addToCart(event, 'design3.jpg', 'Space Vortex')">
-                  <i class="fas fa-cart-plus"></i> Add to Cart
-              </button>
-          </div>
-      </div>
-      <div class="product">
-          <img src="design4.jpg" alt="Falling Titan (Noir Edition)" onclick="openProductModal('design4.jpg', 'Falling Titan (Noir Edition)', 'A striking neon twist on a classical masterpiece. ')">
-          <div class="product-info">
-              <h2>Falling Titan (Noir Edition)</h2>
-              <p>🌌 A striking neon twist on a classical masterpiece. <br><b style="color: #243b55; font-family: cambria;"> Price: GHS 80</b></p>
-              <button class="add-to-cart" data-name="Minimalist Waves" onclick="addToCart(event, 'design4.jpg', 'Minimalist Waves')">
-                  <i class="fas fa-cart-plus"></i> Add to Cart
-              </button>
-          </div>
-      </div>
+  <!-- Product Showcase (Dynamic Generation) -->
+  <section class="products" id="productsContainer">
+    <!-- Products will be generated here by JavaScript -->
   </section>
   
-  <!-- Product Modal (Enlarged View) -->
+  <!-- Product Modal -->
   <div id="productModal" class="modal">
       <div class="modal-content">
           <span class="close" onclick="closeProductModal()">&times;</span>
           <img id="modalImage" src="" alt="Product Image">
           <h2 id="modalTitle" class="modal-title"></h2>
           <p id="modalDescription" class="modal-description"></p>
-          <a id="buyNowLink" href="purchase.html">
-              <button class="buy-now" onclick="selectProductForPurchase(event)"><i class="fas fa-shopping-bag"></i> Buy Now</button>
+          <!-- Garment Options: User selects garment type -->
+          <div class="garment-options">
+            <label>
+              <input type="radio" name="garment" value="tshirt" checked> T-Shirt (GHS <span id="priceTshirt"></span>)
+            </label>
+            <label>
+              <input type="radio" name="garment" value="tankshirt"> Tank Shirt (GHS <span id="priceTank"></span>)
+            </label>
+          </div>
+          <a id="buyNowLink" href="#" onclick="selectProductForPurchase(event)">
+              <button class="buy-now"><i class="fas fa-shopping-bag"></i> Buy Now</button>
           </a>
       </div>
   </div>
   
-  <!-- Cart Modal -->
+   <!-- Cart Modal -->
   <div id="cartModal">
       <h2>Your Cart</h2>
       <ul id="cartItems"></ul>
@@ -589,148 +562,213 @@
         </div>
     </div>
   </footer>
+
   
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Hide modals on page load
-        document.getElementById("productModal").style.display = "none";
-        document.getElementById("cartModal").style.display = "none";
-  
-        let cart = JSON.parse(localStorage.getItem("cart")) || [];
-        updateCartUI();
-        restoreCartState();
-  
-        // Open Product Modal when a cart image is clicked (via openCartProductModal)
-        window.openCartProductModal = function (img, title, description) {
-            document.getElementById("cartModal").style.display = "none"; // Close cart modal
-            openProductModal(img, title, description);
-        };
-  
-        // Open Product Modal
-        window.openProductModal = function (img, title, description) {
-            document.getElementById("modalImage").src = img;
-            document.getElementById("modalTitle").innerText = title;
-            document.getElementById("modalDescription").innerText = description;
-            document.getElementById("productModal").style.display = "flex";
-        };
-  
-        // Close Product Modal
-        window.closeProductModal = function () {
-            document.getElementById("productModal").style.display = "none";
-        };
-  
-        // Add to Cart Function
-        window.addToCart = function (event, img, title) {
-            event.stopPropagation();
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let button = event.target.closest("button");
-  
-            // Check if item is already in cart
-            if (cart.some(item => item.name === title)) {
-                return;
-            }
-  
-            // Add item to cart
-            cart.push({ name: title, image: img });
-            localStorage.setItem("cart", JSON.stringify(cart));
-  
-            // Update button text & style
-            button.classList.add("added");
-            button.innerHTML = "✅ Added to Cart";
-  
-            // Update Cart UI
-            updateCartUI();
-        };
-  
-        // Remove from Cart Function
-        window.removeFromCart = function (index, itemName) {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-            // Remove item at index
-            cart.splice(index, 1);
-            localStorage.setItem("cart", JSON.stringify(cart));
-  
-            updateCartUI();
-            restoreCartState();
-  
-            // Reset the "Add to Cart" button for the removed item
-            document.querySelectorAll(".add-to-cart").forEach(button => {
-                if (button.getAttribute("data-name") === itemName) {
-                    button.classList.remove("added");
-                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
-                }
-            });
-        };
-  
-        // Restore "Added to Cart" Button State on Refresh
-        function restoreCartState() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  
-            document.querySelectorAll(".add-to-cart").forEach(button => {
-                let productName = button.getAttribute("data-name");
-  
-                if (cart.some(item => item.name === productName)) {
-                    button.classList.add("added");
-                    button.innerHTML = "✅ Added to Cart";
-                } else {
-                    button.classList.remove("added");
-                    button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
-                }
-            });
-        }
-  
-        // Update Cart UI (Only Shows Images)
-        function updateCartUI() {
-            let cart = JSON.parse(localStorage.getItem("cart")) || [];
-            let cartItemsContainer = document.getElementById("cartItems");
-  
-            cartItemsContainer.innerHTML = ""; // Clear existing items
-  
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
-            } else {
-                cart.forEach((item, index) => {
-                    let div = document.createElement("div");
-                    div.classList.add("cart-item");
-                    div.innerHTML = `
-                        <img src="${item.image}" alt="${item.name}" class="cart-image" onclick="openCartProductModal('${item.image}', '${item.name}', 'Click Buy Now to purchase')">
-                        <button class="removeFromCart" onclick="removeFromCart(${index}, '${item.name}')">❌</button>
-                    `;
-                    cartItemsContainer.appendChild(div);
-                });
-            }
-        }
-  
-        // Open Cart Modal
-        document.getElementById("cartIcon").addEventListener("click", function () {
-            document.getElementById("cartModal").style.display = "block";
-            updateCartUI();
-        });
-  
-        // Close Cart Modal
-        document.getElementById("closeCart").addEventListener("click", function () {
-            document.getElementById("cartModal").style.display = "none";
-        });
-  
-        // Ensure cart buttons and states are updated on page load
-        restoreCartState();
+    // --- PRODUCTS DATA (Modified for garment options) ---
+    // Each design can be printed on either a T-shirt or a Tank shirt with different prices.
+    const products = [
+      {
+        image: "design1.jpg",
+        title: "Primal Legacy",
+        description: "A timeless blend of history and modern design.",
+        priceTshirt: 80,  // Price for T-shirt in cedis
+        priceTank: 70     // Price for Tank shirt in cedis
+      },
+      {
+        image: "design2.jpg",
+        title: "Primal Legacy (Black)",
+        description: "A fusion of history and modern minimalism.",
+        priceTshirt: 80,
+        priceTank: 70
+      },
+      {
+        image: "design3.jpg",
+        title: "Falling Titan",
+        description: "A bold statement of power and movement.",
+        priceTshirt: 80,
+        priceTank: 70
+      },
+      {
+        image: "design4.jpg",
+        title: "Falling Titan (Noir Edition)",
+        description: "A striking neon twist on a classical masterpiece.",
+        priceTshirt: 80,
+        priceTank: 70
+      }
+      // Add more products as needed...
+    ];
+    
+    // --- Generate Product Grid Dynamically (Modified) ---
+    const productsContainer = document.getElementById("productsContainer");
+    products.forEach((product, index) => {
+      const productDiv = document.createElement("div");
+      productDiv.className = "product";
+      productDiv.innerHTML = `
+         <img src="${product.image}" alt="${product.title}" onclick="openProductModal(${index})">
+         <h2>${product.title}</h2>
+         <p>${product.description}<br>
+         <b style="color: #243b55; font-family: cambria;">
+         Price: GHS ${product.priceTshirt} (T-shirt) / GHS ${product.priceTank} (Tank)
+         </b></p>
+         <button class="add-to-cart" data-name="${product.title}" onclick="addToCart(event, '${product.image}', '${product.title}')">
+            <i class="fas fa-cart-plus"></i> Add to Cart
+         </button>
+      `;
+      productsContainer.appendChild(productDiv);
     });
-
-function selectProductForPurchase(event) {
-  event.preventDefault();  
-  // Retrieve product details from the modal elements
-  const image = document.getElementById("modalImage").src;
-  const title = document.getElementById("modalTitle").innerText;
-  const description = document.getElementById("modalDescription").innerText;
+    
+    // --- Modal Functions (Modified) ---
+    function openProductModal(productIndex) {
+      const product = products[productIndex];
+      document.getElementById("modalImage").src = product.image;
+      document.getElementById("modalTitle").innerText = product.title;
+      document.getElementById("modalDescription").innerText = product.description;
+      // Update garment prices in modal
+      document.getElementById("priceTshirt").innerText = product.priceTshirt;
+      document.getElementById("priceTank").innerText = product.priceTank;
+      // Store the product index globally for later use
+      window.selectedProductIndex = productIndex;
+      document.getElementById("productModal").style.display = "flex";
+    }
+    
+    function closeProductModal() {
+      document.getElementById("productModal").style.display = "none";
+    }
+    
+    // --- "Buy Now" Function (Modified) ---
+    function selectProductForPurchase(event) {
+      event.preventDefault();
+      if (window.selectedProductIndex === undefined) {
+        alert("No product selected.");
+        return;
+      }
+      const product = products[window.selectedProductIndex];
+      // Determine which garment type is selected
+      const garmentType = document.querySelector('input[name="garment"]:checked').value;
+      // Set price based on garment type
+      let price = garmentType === "tshirt" ? product.priceTshirt : product.priceTank;
+      // Create a product object with garment details
+      const selectedProduct = {
+        image: product.image,
+        title: product.title,
+        description: product.description,
+        garment: garmentType,
+        price: price
+      };
+      // Save in localStorage for purchase page use
+      localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+      // Redirect to purchase page
+      window.location.href = "https://jvo-james.github.io/primal-customs/purchase.html";
+    }
+    
+function openCartProductModal(img, title, description) {
+  // Close the cart modal
+  const cartModal = document.getElementById("cartModal");
+  if (cartModal) {
+    cartModal.style.display = "none";
+  }
+  // Set the modal's content
+  document.getElementById("modalImage").src = img;
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalDescription").innerText = description;
   
-  // Store product details in localStorage
-  const selectedProduct = { image, title, description };
-  localStorage.setItem("selectedProduct", JSON.stringify(selectedProduct));
+  // Search the products array for the product with this title
+  const productIndex = products.findIndex(product => product.title === title);
+  if (productIndex !== -1) {
+    window.selectedProductIndex = productIndex;
+    // Update garment prices in modal using the found product
+    document.getElementById("priceTshirt").innerText = products[productIndex].priceTshirt;
+    document.getElementById("priceTank").innerText = products[productIndex].priceTank;
+  } else {
+    // If not found, clear the index so the Buy Now function knows nothing was selected.
+    window.selectedProductIndex = undefined;
+  }
   
-  // Redirect to purchase page
-  window.location.href = "https://jvo-james.github.io/primal-customs/purchase.html";
+  // Open the product modal
+  document.getElementById("productModal").style.display = "flex";
 }
 
+    // --- Cart functions (Optional) ---
+    window.addToCart = function(event, img, title) {
+      event.stopPropagation();
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let button = event.target.closest("button");
+      // Check if already in cart
+      if (cart.some(item => item.name === title)) return;
+      cart.push({ name: title, image: img });
+      localStorage.setItem("cart", JSON.stringify(cart));
+      button.classList.add("added");
+      button.innerHTML = "✅ Added to Cart";
+      updateCartUI();
+    };
+
+    window.removeFromCart = function(index, itemName) {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      cart.splice(index, 1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartUI();
+      restoreCartState();
+      document.querySelectorAll(".add-to-cart").forEach(button => {
+        if (button.getAttribute("data-name") === itemName) {
+          button.classList.remove("added");
+          button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+        }
+      });
+    };
+
+    function restoreCartState() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      document.querySelectorAll(".add-to-cart").forEach(button => {
+        let productName = button.getAttribute("data-name");
+        if (cart.some(item => item.name === productName)) {
+          button.classList.add("added");
+          button.innerHTML = "✅ Added to Cart";
+        } else {
+          button.classList.remove("added");
+          button.innerHTML = '<i class="fas fa-cart-plus"></i> Add to Cart';
+        }
+      });
+    }
+
+    function updateCartUI() {
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      let cartItemsContainer = document.getElementById("cartItems");
+      if (!cartItemsContainer) return; // if no cart modal exists
+      cartItemsContainer.innerHTML = "";
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = "<p>Your cart is empty.</p>";
+      } else {
+        cart.forEach((item, index) => {
+          let div = document.createElement("div");
+          div.classList.add("cart-item");
+          div.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-image" onclick="openCartProductModal('${item.image}', '${item.name}', 'Click Buy Now to purchase')">
+            <button class="removeFromCart" onclick="removeFromCart(${index}, '${item.name}')">❌</button>
+          `;
+          cartItemsContainer.appendChild(div);
+        });
+      }
+    }
+    
+    // Open cart modal listener (if implemented)
+    document.getElementById("cartIcon").addEventListener("click", function () {
+      const cartModal = document.getElementById("cartModal");
+      if (cartModal) {
+        cartModal.style.display = "block";
+        updateCartUI();
+      }
+    });
+    // Close cart modal listener
+    const closeCartBtn = document.getElementById("closeCart");
+    if (closeCartBtn) {
+      closeCartBtn.addEventListener("click", function () {
+        document.getElementById("cartModal").style.display = "none";
+      });
+    }
+    
+    // Ensure cart state is restored on page load
+    restoreCartState();
   </script>
 </body>
 </html>
