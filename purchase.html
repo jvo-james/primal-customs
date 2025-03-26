@@ -184,6 +184,18 @@
     .purchase-form-container button:hover {
       background: #e68900;
     }
+    /* Style for inline error messages */
+.error-message {
+  color: red;
+  font-size: 13px;
+  margin-top: 4px;
+}
+
+/* Style for invalid fields */
+.invalid {
+  border: 2px solid red !important;
+}
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -369,60 +381,88 @@
       }
     });
 
- // Validate form fields without showing error messages
+// Utility function to show an error message below an input element
+function showError(inputElement, message) {
+  // Remove any existing error message
+  const existing = inputElement.parentNode.querySelector(".error-message");
+  if (existing) {
+    existing.remove();
+  }
+  // Create error message element
+  const error = document.createElement("div");
+  error.classList.add("error-message");
+  error.innerText = message;
+  inputElement.parentNode.appendChild(error);
+  inputElement.classList.add("invalid");
+}
+
+// Clear error styling from an input element
+function clearError(inputElement) {
+  inputElement.classList.remove("invalid");
+  const existing = inputElement.parentNode.querySelector(".error-message");
+  if (existing) {
+    existing.remove();
+  }
+}
+
+// Validate form fields and show inline messages
 function isFormValid() {
-  // Remove "invalid" class from all fields
-  document.querySelectorAll(".invalid").forEach(el => el.classList.remove("invalid"));
+  let valid = true;
+  
+  // List of fields to validate
+  const buyerName = document.getElementById("buyerName");
+  const buyerEmail = document.getElementById("buyerEmail");
+  const buyerPhone = document.getElementById("buyerPhone");
+  const buyerAddress = document.getElementById("buyerAddress");
+  const tshirtSize = document.getElementById("tshirtSize");
+  const termsAccepted = document.getElementById("terms");
+
+  // Clear any previous errors
+  [buyerName, buyerEmail, buyerPhone, buyerAddress, tshirtSize, termsAccepted].forEach(clearError);
 
   // Full Name: must contain at least two words
-  const buyerName = document.getElementById("buyerName");
   if (!/^\S+\s+\S+/.test(buyerName.value.trim())) {
-    buyerName.classList.add("invalid");
-    buyerName.focus();
-    return false;
+    showError(buyerName, "Enter your FULL NAME (first and last name)");
+    if (valid) buyerName.focus();
+    valid = false;
   }
 
   // Email: basic validation
-  const buyerEmail = document.getElementById("buyerEmail");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(buyerEmail.value.trim())) {
-    buyerEmail.classList.add("invalid");
-    buyerEmail.focus();
-    return false;
+    showError(buyerEmail, "Enter a valid email address");
+    if (valid) buyerEmail.focus();
+    valid = false;
   }
 
   // Phone: exactly 10 digits (numbers only)
-  const buyerPhone = document.getElementById("buyerPhone");
   if (!/^\d{10}$/.test(buyerPhone.value.trim())) {
-    buyerPhone.classList.add("invalid");
-    buyerPhone.focus();
-    return false;
+    showError(buyerPhone, "Enter a valid 10-digit phone number");
+    if (valid) buyerPhone.focus();
+    valid = false;
   }
 
   // Address: must not be empty
-  const buyerAddress = document.getElementById("buyerAddress");
   if (buyerAddress.value.trim() === "") {
-    buyerAddress.classList.add("invalid");
-    buyerAddress.focus();
-    return false;
+    showError(buyerAddress, "Address is required");
+    if (valid) buyerAddress.focus();
+    valid = false;
   }
 
   // T-Shirt Size: must be selected
-  const tshirtSize = document.getElementById("tshirtSize");
   if (!tshirtSize.value) {
-    tshirtSize.classList.add("invalid");
-    tshirtSize.focus();
-    return false;
+    showError(tshirtSize, "Select a T-Shirt Size");
+    if (valid) tshirtSize.focus();
+    valid = false;
   }
 
   // Terms & Conditions: must be accepted
-  const termsAccepted = document.getElementById("terms");
   if (!termsAccepted.checked) {
-    termsAccepted.classList.add("invalid");
-    termsAccepted.focus();
-    return false;
+    showError(termsAccepted, "You must accept the Terms & Conditions");
+    if (valid) termsAccepted.focus();
+    valid = false;
   }
 
-  return true;
+  return valid;
 }
 
 // Handle the "Proceed to Payment" button click
